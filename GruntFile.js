@@ -22,9 +22,7 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            files: ["
-            public/js/*.js", "!public/js/*.min.js"
-          ],
+            files: ["public/js/*.js", "!public/js/*.min.js"],
             options: {
                 globals: {
                     jQuery: true

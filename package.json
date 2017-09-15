@@ -11,7 +11,7 @@
     "API",
     "web-application"
   ],
-  "author": "Omri Webber",
+  "author": "Omri Webber & Mathew Boyles",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",

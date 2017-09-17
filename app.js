@@ -1,5 +1,5 @@
-var express = require('express');
-var path = require('path');
+var express = require("express");
+var path = require("path");
 
 var app = express();
 
@@ -10,7 +10,7 @@ app.use(function(request, reponse, next){
 
 app.use(express.static("./public"));
 
-app.use('/packages', express.static(path.join(__dirname, 'node_modules/')));
+app.use("/packages", express.static(path.join(__dirname, "node_modules/")));
 
 app.listen(3000);
 

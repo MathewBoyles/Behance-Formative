@@ -14,9 +14,10 @@
   "author": "Omri Webber & Mathew Boyles",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.0.0-beta",
     "express": "^4.15.4",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "popper.js": "^1.11.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1",

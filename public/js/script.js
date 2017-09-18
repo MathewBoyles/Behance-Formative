@@ -1,8 +1,19 @@
 $.fn.popup = function(fun, options) {
+  var defaults = {
+    backdrop: true,
+    click: true,
+    keyboard: true
+  };
+  var settings = $.extend( {}, defaults, options );
+
   if(fun == "toggle") {
     this.popup((this.is(":visible") ? "hide" : "show"), options);
     return this;
   }
+
+  this.data({
+    "popupSettings": settings
+  });
 
   this.find(".popup-backdrop")
     .filter(function() {
@@ -10,7 +21,7 @@ $.fn.popup = function(fun, options) {
     })
     .data({"popupInit": 1})
     .click(function() {
-      $(this).parent().popup("hide");
+      if($(this).parent().data("popupSettings").click) $(this).parent().popup("hide");
     });
 
   if(fun == "hide") {
@@ -32,11 +43,21 @@ $.fn.popup = function(fun, options) {
       .animate({
         "top": "50%"
       });
-    this.find(".popup-backdrop").fadeIn(500);
+    if(this.data("popupSettings").backdrop) this.find(".popup-backdrop").fadeIn(500);
+    else this.find(".popup-backdrop").css({"opacity":0}).show();
   }
 
   return this;
 };
+
+$(document).keyup(function(e) {
+  if (e.keyCode == 27 && $(".popup:visible").length) {
+    $(".popup:visible").filter(function() {
+      return $(this).data("popupSettings").keyboard;
+    }).popup("hide");
+  }
+});
+
 
 
 

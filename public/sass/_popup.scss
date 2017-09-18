@@ -24,7 +24,8 @@ $popup-padding: 80px;
     }
 
     > .popup-content {
-      > img {
+      > img,
+      > div {
         display: block;
         margin: 0 auto 15px;
         max-width: 100%;

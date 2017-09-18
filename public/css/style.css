@@ -17,11 +17,13 @@
     .popup > .popup-container > .popup-sidebar {
       overflow-y: scroll;
       padding: 0; }
-    .popup > .popup-container > .popup-content > img {
+    .popup > .popup-container > .popup-content > img,
+    .popup > .popup-container > .popup-content > div {
       display: block;
       margin: 0 auto 15px;
       max-width: 100%; }
-      .popup > .popup-container > .popup-content > img:last-child {
+      .popup > .popup-container > .popup-content > img:last-child,
+      .popup > .popup-container > .popup-content > div:last-child {
         margin-bottom: 0; }
     .popup > .popup-container > .popup-sidebar > h4 {
       font-size: 1em;

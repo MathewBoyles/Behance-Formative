@@ -1,3 +1,11 @@
+var mixer = mixitup($("#mixitup-container"), {
+    selectors: {
+        target: '.portfolio-item'
+    },
+    animation: {
+        duration: 300
+    }
+});
 
 
 

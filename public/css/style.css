@@ -4,6 +4,108 @@
   box-sizing: border-box; }
 
 body {
-  color: white; }
+  color: white;
+  font-family: "Arial", sans-serif; }
+
+.btn {
+  background-color: #618F62;
+  color: white;
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin: 0 5px; }
+
+.btn-active {
+  background-color: #8F481A; }
+
+.navbar {
+  position: absolute;
+  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.5) 27%, rgba(255, 255, 255, 0) 100%); }
+  .navbar .container {
+    width: 80%;
+    left: 10%;
+    margin: 40px auto; }
+  .navbar .nav-link {
+    color: #FFFFFF !important; }
+
+.hero {
+  width: 100vw;
+  height: 80vh;
+  background-image: url("../img/hero.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.quote-block {
+  background-color: #02A798;
+  padding: 50px;
+  text-align: center; }
+  .quote-block .quote-block-text {
+    font-family: "Bitter", serif;
+    font-size: 26px;
+    padding: 5px; }
+  .quote-block .quote-block-sub-text {
+    width: 60%;
+    margin: 0 auto;
+    font-family: "Arial", sans-serif;
+    font-size: 16px; }
+
+.content {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 50px 0;
+  overflow: auto; }
+  .content .container {
+    padding: 20px; }
+    .content .container .portfolio-item {
+      background-color: grey;
+      float: left;
+      min-height: 200px; }
+
+.team-link {
+  background-color: #02A798;
+  color: #FFFFFF;
+  padding: 40px;
+  overflow: auto; }
+  .team-link .col-md-8, .team-link .col-md-4 {
+    float: left;
+    height: 100%;
+    vertical-align: middle; }
+  .team-link .fa-chevron-right {
+    float: right;
+    margin-top: 25px; }
+
+footer {
+  background-color: #333;
+  color: #FFFFFF;
+  overflow: auto;
+  padding: 50px;
+  width: 100%; }
+  footer hr {
+    width: 100%;
+    margin: 90px 0 20px;
+    background-color: #666; }
+  footer .col-md-4 {
+    padding: 0px;
+    float: left;
+    text-align: center; }
+    footer .col-md-4 ul {
+      list-style-type: none; }
+      footer .col-md-4 ul li {
+        display: inline;
+        vertical-align: middle; }
+        footer .col-md-4 ul li a {
+          color: #FFFFFF;
+          padding: 5px 10px; }
+        footer .col-md-4 ul li a:hover {
+          color: #cccccc;
+          text-decoration: none; }
+  footer .copyright {
+    width: 80%;
+    margin: 0 auto;
+    text-align: right;
+    opacity: 0.5;
+    font-size: 10px; }
 
 /*# sourceMappingURL=style.css.map */

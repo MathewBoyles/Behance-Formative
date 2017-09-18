@@ -1,14 +1,19 @@
 $popup-padding: 80px;
 
 .popup {
+  display: none;
 
   > .popup-container {
     background: #FFF;
+    box-shadow: 0 0 20px 0px #565656;
     height: calc(100% - #{$popup-padding} - #{$popup-padding});
-    left: $popup-padding;
+    left: 50%;
     margin: 0;
+    max-height: 650px;
+    max-width: 1240px;
     position: fixed;
-    top: $popup-padding;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: calc(100% - #{$popup-padding} - #{$popup-padding});
     z-index: 1001;
 
@@ -108,6 +113,8 @@ $popup-padding: 80px;
       }
 
       > .popup-comments {
+        padding-bottom: 30px;
+
         > li {
           img {
             border-radius: 50%;

@@ -1,0 +1,46 @@
+footer {
+	background-color: #333;
+	color: $primaryColor;
+	overflow: auto;
+	padding: 50px;
+	width: 100%;
+
+	hr {
+		width: 100%;
+		margin: 90px 0 20px;
+		background-color: #666;
+	}
+
+	.col-md-4 {
+		padding: 0px;
+		float: left;
+		text-align: center;
+
+		ul {
+			list-style-type: none;
+
+			li {
+				display: inline;
+				vertical-align: middle;
+
+				a {
+					color: $primaryColor;
+					padding: 5px 10px;
+				}
+
+				a:hover {
+					color: darken($primaryColor, 20%);
+					text-decoration: none;
+				}
+			}
+		}
+	}
+
+	.copyright {
+		width: 80%;
+		margin: 0 auto;
+		text-align: right;
+		opacity: 0.5;
+		font-size: 10px;
+	}
+}

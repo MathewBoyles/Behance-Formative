@@ -1,0 +1,17 @@
+.team-link {
+	background-color: $secondaryColor;
+	color: $primaryColor;
+	padding: 40px;
+	overflow: auto;
+
+	.col-md-8, .col-md-4 {
+		float: left;
+		height: 100%;
+		vertical-align: middle;
+	}
+
+	.fa-chevron-right {
+		float: right;
+		margin-top: 25px;
+	}
+}

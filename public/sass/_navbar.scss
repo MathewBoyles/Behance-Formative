@@ -1,0 +1,15 @@
+.navbar {
+	position: absolute;
+	width: 100%;
+	background: linear-gradient(rgba(0, 0, 0, 0.50) 27%, rgba(255, 255, 255, 0) 100%);
+
+	.container {
+		width: 80%;
+		left: 10%;
+		margin: 40px auto;
+	}
+
+	.nav-link {
+		color: $primaryColor !important;
+	}
+}

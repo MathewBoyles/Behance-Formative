@@ -1,0 +1,162 @@
+$popup-padding: 80px;
+
+.popup {
+  color: #000;
+  display: none;
+
+  > .popup-container {
+    background: #FFF;
+    box-shadow: 0 0 20px 0px #565656;
+    height: calc(100% - #{$popup-padding} - #{$popup-padding});
+    left: 50%;
+    margin: 0;
+    max-height: 650px;
+    max-width: 1240px;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - #{$popup-padding} - #{$popup-padding});
+    z-index: 1001;
+
+    > .popup-content,
+    > .popup-sidebar {
+      overflow-y: scroll;
+      padding: 0;
+    }
+
+    > .popup-content {
+      > img,
+      > div {
+        display: block;
+        margin: 0 auto 15px;
+        max-width: 100%;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    > .popup-sidebar {
+      > h4 {
+        font-size: 1em;
+        padding: 10px 40px;
+        text-transform: uppercase;
+      }
+
+      > .popup-header {
+        padding: 50px 40px 30px;
+
+        > .popup-open {
+          color: #989898;
+          float: right;
+          font-size: 2em;
+          transition: color 0.5s;
+
+          &:hover {
+            color: #5e5e5e;
+          }
+        }
+
+        > .popup-title {
+          font-size: 1.1em;
+          font-weight: bold;
+        }
+
+        > .popup-subtitle {
+          color: #868e96;
+        }
+
+        > .popup-stats {
+          color: #5e5e5e;
+          margin-bottom: 1rem;
+
+          > span {
+            margin-right: 15px;
+          }
+        }
+
+        > .popup-date {
+          color: #5e5e5e;
+          margin: 0;
+        }
+      }
+
+      > .popup-contributors,
+      > .popup-comments {
+        list-style: none;
+        margin: 0 40px;
+        padding: 0 0 10px;
+
+        > li {
+          margin-bottom: 15px;
+
+          > a {
+            color: inherit;
+            text-decoration: none;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      > .popup-contributors {
+        > li {
+          > a {
+            > img {
+              border-radius: 50%;
+              margin-right: 5px;
+              width: 50px;
+            }
+          }
+        }
+      }
+
+      > .popup-comments {
+        padding-bottom: 30px;
+
+        > li {
+          img {
+            border-radius: 50%;
+            float: left;
+            margin-right: 10px;
+            width: 50px;
+          }
+
+          > .comment-top {
+            display: block;
+
+            a {
+              color: inherit;
+              text-decoration: none;
+            }
+
+            > span {
+              color: #5e5e5e;
+              font-size: 0.8em;
+              margin-left: 5px;
+            }
+          }
+
+          > .comment-text {
+            color: #454545;
+          }
+        }
+      }
+    }
+  }
+
+  > .popup-backdrop {
+    background: #000;
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    opacity: 0.5;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+}

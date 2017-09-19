@@ -4,7 +4,8 @@
 	padding: 40px;
 	overflow: auto;
 
-	.col-md-8, .col-md-4 {
+	.col-md-4,
+	.col-md-8 {
 		float: left;
 		height: 100%;
 		vertical-align: middle;
@@ -13,5 +14,60 @@
 	.fa-chevron-right {
 		float: right;
 		margin-top: 25px;
+	}
+}
+
+.team-row {
+	> .team-memeber {
+		position: relative;
+
+		> .team-info {
+			background: rgba(43, 43, 43, 0.52);
+			height: 100%;
+			left: 0;
+			margin: 0 15px;
+			opacity: 0;
+			position: absolute;
+			transition: opacity 0.5s;
+			top: 0;
+			width: calc(100% - 30px);
+
+			> a {
+				color: inherit;
+				height: 100%;
+				left: 0;
+				position: absolute;
+				text-decoration: none;
+				top: 0;
+		    width: 100%;
+
+				> h3 {
+					padding-top: 55%;
+					margin: 0 0 5px;
+					font-family: $primaryFont;
+					font-size: 1.2em;
+					font-weight: bold;
+				}
+
+				> p {
+					font-size: 0.9em;
+					margin: 0;
+				}
+			}
+		}
+
+		> img {
+			width: 100%;
+		}
+
+		&:hover {
+			> .team-info {
+				opacity: 1;
+			}
+		}
+	}
+
+	& + .team-row {
+		margin-top: 20px;
 	}
 }

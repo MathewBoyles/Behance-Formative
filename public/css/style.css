@@ -29,6 +29,9 @@ body {
     width: 150px; }
   .navbar .nav-link {
     color: #FFFFFF !important; }
+    .navbar .nav-link.nav-active {
+      font-weight: bold;
+      text-decoration: underline; }
   .navbar.bg-faded {
     background: linear-gradient(rgba(0, 0, 0, 0.5) 27%, rgba(255, 255, 255, 0) 100%); }
   .navbar.navbar-dark .nav-link {
@@ -95,15 +98,23 @@ body {
     transition: opacity 0.5s;
     top: 0;
     width: calc(100% - 30px); }
-    .team-row > .team-memeber > .team-info > h3 {
-      padding-top: 55%;
-      margin: 0 0 5px;
-      font-family: "Bitter", serif;
-      font-size: 1.2em;
-      font-weight: bold; }
-    .team-row > .team-memeber > .team-info > p {
-      font-size: 0.9em;
-      margin: 0; }
+    .team-row > .team-memeber > .team-info > a {
+      color: inherit;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      text-decoration: none;
+      top: 0;
+      width: 100%; }
+      .team-row > .team-memeber > .team-info > a > h3 {
+        padding-top: 55%;
+        margin: 0 0 5px;
+        font-family: "Bitter", serif;
+        font-size: 1.2em;
+        font-weight: bold; }
+      .team-row > .team-memeber > .team-info > a > p {
+        font-size: 0.9em;
+        margin: 0; }
   .team-row > .team-memeber > img {
     width: 100%; }
   .team-row > .team-memeber:hover > .team-info {
@@ -218,7 +229,7 @@ footer {
   color: #FFFFFF;
   overflow: auto;
   width: 100%; }
-  footer .container {
+  footer .container:first-child {
     padding: 50px 50px 0; }
   footer hr {
     width: 100%;
@@ -245,14 +256,15 @@ footer {
         margin-top: 11px; }
         footer .col-4 ul.footer-nav li a {
           padding: 5px 10px; }
+          footer .col-4 ul.footer-nav li a.nav-active {
+            font-weight: bold;
+            text-decoration: underline; }
   footer .footer-logo img {
     margin-top: -2px; }
   footer .copyright {
-    width: 80%;
-    margin: 0 auto;
     text-align: right;
     opacity: 0.5;
     font-size: 10px;
-    padding: 15px 50px 30px; }
+    padding: 15px 0; }
 
 /*# sourceMappingURL=style.css.map */

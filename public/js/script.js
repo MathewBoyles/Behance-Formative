@@ -1,12 +1,13 @@
-var mixer = mixitup($("#mixitup-container"), {
+if ($("#mixitup-container").is("*")) {
+  var mixer = mixitup($("#mixitup-container"), {
     selectors: {
-        target: '.portfolio-item'
+      target: '.portfolio-item'
     },
     animation: {
-        duration: 300
+      duration: 300
     }
-});
-
+  });
+}
 
 
 // Template ajax request

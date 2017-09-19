@@ -1,7 +1,6 @@
 .navbar {
 	position: absolute;
 	width: 100%;
-	background: linear-gradient(rgba(0, 0, 0, 0.50) 27%, rgba(255, 255, 255, 0) 100%);
 
 	.container {
 		width: 80%;
@@ -9,7 +8,23 @@
 		margin: 40px auto;
 	}
 
+	.navbar-brand {
+		img {
+			width: 150px;
+		}
+	}
+
 	.nav-link {
 		color: $primaryColor !important;
+	}
+
+	&.bg-faded {
+		background: linear-gradient(rgba(0, 0, 0, 0.50) 27%, rgba(255, 255, 255, 0) 100%);
+	}
+
+	&.navbar-dark {
+		.nav-link {
+			color: #000 !important;
+		}
 	}
 }

@@ -1,23 +1,3 @@
-if ($("#mixitup-container").is("*")) {
-  var mixer = mixitup($("#mixitup-container"), {
-    selectors: {
-      target: '.portfolio-item'
-    },
-    animation: {
-      duration: 300
-    }
-  });
-}
-
-
-// Template ajax request
-// $.ajax({
-//   url: "url",
-//   dataType: "json",
-//   success: function(data){
-//     console.log(data);
-//   },
-//   error: function(){
-//     console.log("something went wrong.");
-//   }
-// });
+var config = {
+  client_id: "8hRTUTjbwsJrLqGZ0kgxT48GBmkwwM5g"
+};

@@ -1,4 +1,4 @@
-if ($("#teamRows").is("*")) {
+if ($("body").attr("id") == "about") {
   $.getJSON("/js/team.json", function(team) {
     var template = $("#teamRows").html();
     var compiledTemplate = Template7.compile(template);

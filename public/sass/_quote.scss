@@ -1,6 +1,6 @@
 .quote-block {
 	background-color: $secondaryColor;
-	padding: 50px;
+	padding: 50px 50px 55px;
 	text-align: center;
 
 	.quote-block-text {
@@ -11,7 +11,7 @@
 
 	.quote-block-sub-text {
 		width: 60%;
-		margin: 0 auto;
+		margin: 15px auto 0;
 		font-family: $secondaryFont;
 		font-size: 16px;
 	}

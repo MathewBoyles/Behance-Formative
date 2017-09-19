@@ -1,0 +1,43 @@
+[{
+    "name": "Marcéu Lobo",
+    "role": "Lead Post Production",
+    "image": "/img/team/lobo.jpg",
+    "behance": "marceulobo"
+  },
+  {
+    "name": "Diego Maricato",
+    "role": "Lead CGI Artist",
+    "image": "/img/team/maricato.jpg",
+    "behance": "diegomaricato"
+  },
+  {
+    "name": "Marcelo Cabral",
+    "role": "CGI Artist",
+    "image": "/img/team/cabral.jpg",
+    "behance": "marcelocabral"
+  },
+  {
+    "name": "Diego Barcellos",
+    "role": "Illustrator / Post Production",
+    "image": "/img/team/barcellos.jpg",
+    "behance": "diegobarcellos"
+  },
+  {
+    "name": "Ramon Saroldi",
+    "role": "Post Production",
+    "image": "/img/team/saroldi.jpg",
+    "behance": "rsaroldi"
+  },
+  {
+    "name": "Helena Lopes",
+    "role": "Creative Retoucher",
+    "image": "/img/team/lopes.jpg",
+    "behance": "helenalopes"
+  },
+  {
+    "name": "Rafael Moco",
+    "role": "CGI Artist",
+    "image": "/img/team/moco.jpg",
+    "behance": "rafaelmoco"
+  }
+]

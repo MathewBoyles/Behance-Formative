@@ -1,63 +1,96 @@
-// Get Lightfarm Studio Data
-if ($("body").attr("id") == "homepage") {
+var homepageData = {
+  categories: [],
+  categoriesCount: {},
+  mixer: null,
+  page: 0
+};
+
+function loadHomepage() {
+  homepageData.page++;
+  $("#mixitup-loadmore").remove();
   $.ajax({
-    url: "http://www.behance.net/v2/projects",
+    url: "http://www.behance.net/v2/users/" + config.user_id + "/projects",
     data: {
-      client_id: config.client_id
+      client_id: config.client_id,
+      per_page: 12,
+      page: homepageData.page
     },
     dataType: "jsonp",
     success: function(data) {
-      var categories = [];
-      var categoriesCount = {};
-
       for (var i = 0; i < data.projects.length; i++) {
         for (var i_i = 0; i_i < data.projects[i].fields.length; i_i++) {
           var c_name = data.projects[i].fields[i_i];
-          if (categories.indexOf(c_name) == -1) categories.push(c_name);
-          categoriesCount[c_name] = categoriesCount[c_name] ? (Number(categoriesCount[c_name]) + 1) : 1;
+          if (homepageData.categories.indexOf(c_name) == -1) homepageData.categories.push(c_name);
+          homepageData.categoriesCount[c_name] = homepageData.categoriesCount[c_name] ? (Number(homepageData.categoriesCount[c_name]) + 1) : 1;
         }
-        var tagLine = "";
-        for (var i_tag = 0; i_tag < data.projects[i].fields.length; i_tag++) {
-          tagLine += " tag-" + (data.projects[i].fields[i_tag].replace(/ /g, "").replace(/[^\w\s]/gi, "").toLowerCase());
-        }
-        $("#mixitup-container .row").append("<div class='portfolio-item col-md-3" + tagLine + "' data-id='" + data.projects[i].id + "'> " +
-          "<img class='portfolio-image' src='" + data.projects[i].covers[404] + "' alt='" + data.projects[i].name.replace(/'/g, "") + "'>" +
-          "</div>");
+        $el = $("<div />");
+        for (var i_tag = 0; i_tag < data.projects[i].fields.length; i_tag++) $el.addClass("tag-" + (data.projects[i].fields[i_tag].replace(/ /g, "").replace(/[^\w\s]/gi, "").toLowerCase()));
+        $el
+          .addClass("portfolio-item")
+          .addClass("col-md-3")
+          .data("projectData", data.projects[i])
+          .append("<img />")
+          .find("img:last")
+          .addClass("portfolio-image")
+          .attr("src", data.projects[i].covers[404])
+          .attr("alt", data.projects[i].name)
+          .parent()
+          .append("<div />")
+          .find("div:last")
+          .addClass("portfolio-title")
+          .text(data.projects[i].name)
+          .parent()
+          .click(showItem);
+        $("#mixitup-container .row").append($el);
       }
-      $("#mixitup-container .row .portfolio-item").click(function() {
-        console.log($(this));
 
-      });
-
-      var categoriesSorted = Object.keys(categoriesCount).sort(function(a, b) {
-        return categoriesCount[a] - categoriesCount[b];
+      var categoriesSorted = Object.keys(homepageData.categoriesCount).sort(function(a, b) {
+        return homepageData.categoriesCount[a] - homepageData.categoriesCount[b];
       });
       categoriesSorted.reverse();
 
+      $("#mixitup-container .filters .btn:not(:eq(0))").remove();
+
       for (var j = 0; j < categoriesSorted.length; j++) {
-        var isHidden = j > 3;
-        $("#mixitup-container .filters").append("<button class='btn" + (isHidden ? " hide" : "") + "' type='button' data-filter='.tag-" + categoriesSorted[j].replace(/ /g, "").replace(/[^\w\s]/gi, "").toLowerCase() + "'>" + categoriesSorted[j] + "</button>");
+        $el = $("<button />");
+        $el
+          .addClass("btn")
+          .attr("type", "button")
+          .attr("data-filter", (".tag-" + categoriesSorted[j].replace(/ /g, "").replace(/[^\w\s]/gi, "").toLowerCase()))
+          .text(categoriesSorted[j]);
+        if (j > 3) $el.addClass("hide");
+        $("#mixitup-container .filters").append($el);
 
         if (j == (categoriesSorted.length - 1) && categoriesSorted.length > 4) {
+          $("#mixitup-container .filters .btn.showmore, #mixitup-container .filters #mixitup-showless").remove();
           $("#mixitup-container .filters").append("<button class='btn showmore' type='button'>Show more...</button>");
           $("#mixitup-container .filters").append("<a id='mixitup-showless'>Show less</a>");
         }
       }
 
+      if (data.projects.length == 12) {
+        $el = $("<button />");
+        $el
+          .addClass("btn")
+          .attr("type", "button")
+          .attr("id", "mixitup-loadmore")
+          .text("Load more...")
+          .click(loadHomepage);
+        $("#mixitup-container").append($el);
+      }
+
       $("#mixitup-container .filters .btn.showmore").click(function() {
-        $(this).hide();
-        $("#mixitup-container .filters .btn.hide").show();
-        $("#mixitup-showless").css("display", "block");
+        $("#mixitup-container .filters").addClass("show");
         return false;
       });
 
       $("#mixitup-showless").click(function() {
-        $(this).hide();
-        $("#mixitup-container .filters .btn.hide:not(.mixitup-control-active)").hide();
-        $("#mixitup-container .filters .btn.showmore").show();
+        $("#mixitup-container .filters").removeClass("show");
+        return false;
       });
 
-      var mixer = mixitup($("#mixitup-container"), {
+      if (homepageData.mixer) homepageData.mixer.destroy();
+      homepageData.mixer = mixitup($("#mixitup-container"), {
         selectors: {
           target: ".portfolio-item"
         },
@@ -65,9 +98,13 @@ if ($("body").attr("id") == "homepage") {
           duration: 300
         }
       });
+
+      $("#loading").fadeOut();
     },
     error: function() {
       console.log("something went wrong.");
     }
   });
 }
+
+if ($("body").attr("id") == "homepage") loadHomepage(1);

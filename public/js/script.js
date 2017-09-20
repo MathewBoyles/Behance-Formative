@@ -1,3 +1,21 @@
 var config = {
-  client_id: "8hRTUTjbwsJrLqGZ0kgxT48GBmkwwM5g"
+  user_id: "Lightfarm",
+  client_id: "THVb3iZMcUlK7Qzh2qgcbCcxk0seZlpV"
 };
+
+// 8hRTUTjbwsJrLqGZ0kgxT48GBmkwwM5g
+
+function numberFormat(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function loadTmpl(tmpl) {
+  $.ajax({
+    url: "/tmpl/" + tmpl + ".html",
+    success: function(data) {
+      $("body").append(data);
+    }
+  });
+}
+
+loadTmpl("popup");

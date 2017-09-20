@@ -34,7 +34,8 @@ body {
 
 .navbar {
   position: absolute;
-  width: 100%; }
+  width: 100%;
+  z-index: 100; }
   .navbar .container {
     width: 80%;
     left: 10%;
@@ -307,6 +308,18 @@ body {
     height: 100%;
     left: 0;
     top: 0; }
+
+#map {
+  height: 100%;
+  width: 1024px;
+  z-index: 1;
+  margin: 0 auto; }
+
+.infoWindowText {
+  color: black; }
+  .infoWindowText h5 {
+    text-align: center;
+    margin-bottom: 0px; }
 
 footer {
   background-color: #4a4a4a;

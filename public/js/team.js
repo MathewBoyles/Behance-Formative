@@ -15,6 +15,7 @@ if ($("body").attr("id") == "about") {
     };
     var html = compiledTemplate(context);
     $("#teamRows").after(html);
-    console.log(context);
+
+    $("#loading").fadeOut();
   });
 }

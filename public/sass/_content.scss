@@ -8,8 +8,19 @@
 	.filters {
 		padding: 10px;
 
-		.btn {
-			&.hide {
+		&:not(.show) {
+			.btn {
+				&.hide:not(.mixitup-control-active) {
+					display: none!important;
+				}
+			}
+			#mixitup-showless {
+				display: none!important;
+			}
+		}
+
+		&.show {
+			.btn.showmore {
 				display: none;
 			}
 		}
@@ -19,21 +30,41 @@
 		padding: 20px;
 
 		.portfolio-item {
+			cursor: pointer;
 			float: left;
 			padding: 15px;
+			position: relative;
 
 			.portfolio-image {
 				width: 100%;
 				height: 100%;
 				background-color: lightGrey;
 			}
+
+			.portfolio-title {
+				background: #828282;
+				bottom: 15px;
+				left: 15px;
+				opacity: 0;
+				padding: 10px;
+				position: absolute;
+				text-align: left;
+				transition: opacity 0.5s;
+				width: calc(100% - 30px);
+			}
+
+			&:hover {
+				.portfolio-title {
+					opacity: 1;
+				}
+			}
 		}
 	}
 
 	#mixitup-showless {
-		display: none;
 		cursor: pointer;
 		color: #007bff;
+		display: block;
 		padding-top: 20px;
 		text-decoration: underline;
 	}

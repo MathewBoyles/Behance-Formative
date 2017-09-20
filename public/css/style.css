@@ -7,6 +7,20 @@ body {
   color: white;
   font-family: "Arial", sans-serif; }
 
+#loading {
+  background: rgba(0, 0, 0, 0.38);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000; }
+  #loading > div {
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%; }
+
 .btn {
   background-color: #618F62;
   color: white;

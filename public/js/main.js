@@ -61,6 +61,8 @@ function apiError() {
 loadTmpl("popup");
 
 // Source: items.js
+var pauseHash = false;
+
 function showItem(item) {
   $("#loading").fadeIn();
 
@@ -87,6 +89,7 @@ function showItem(item) {
           var popupPreviousTitle = document.title;
 
           document.title = context.name;
+          pauseHash = true;
           window.location.hash = "view=" + context.id;
 
           context.comments = data.comments;
@@ -111,7 +114,11 @@ function showItem(item) {
   });
 }
 
-if (window.location.hash.substr(0, 6) == "#view=" && !isNaN(window.location.hash.substr(6))) showItem(window.location.hash.substr(6));
+$(window).on("hashchange", function() {
+  if (pauseHash) pauseHash = false;
+  else if (window.location.hash.substr(0, 6) == "#view=" && !isNaN(window.location.hash.substr(6))) showItem(window.location.hash.substr(6));
+  else if ($("#portfolioPopupModal").is(":visible")) $("#portfolioPopupModal").popup("hide");
+}).trigger("hashchange");
 
 // Source: map.js
 var mapReady = false;

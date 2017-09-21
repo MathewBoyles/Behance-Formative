@@ -8,6 +8,22 @@ body {
   color: white;
   font-family: "Arial", sans-serif; }
 
+@-webkit-keyframes sk-bouncedelay {
+  0%,
+  100%,
+  80% {
+    -webkit-transform: scale(0); }
+  40% {
+    -webkit-transform: scale(1); } }
+@keyframes sk-bouncedelay {
+  0%,
+  100%,
+  80% {
+    -webkit-transform: scale(0);
+    transform: scale(0); }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1); } }
 #loading {
   background: rgba(0, 0, 0, 0.38);
   height: 100%;
@@ -22,13 +38,37 @@ body {
     transform: translate(-50%, -50%);
     top: 50%; }
 
+.bouncer {
+  margin: 4px auto 0;
+  width: 70px;
+  text-align: center; }
+  .bouncer > div {
+    width: 18px;
+    height: 18px;
+    background-color: #FFF;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both; }
+  .bouncer .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s; }
+  .bouncer .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s; }
+
 .btn {
-  background-color: #618F62;
+  background: #618F62;
   border-radius: 20px;
   color: white;
   cursor: pointer;
-  margin: 5px 5px;
+  margin: 5px;
   padding: 8px 16px; }
+  .btn.btn-invert {
+    background: transparent;
+    border: 3px solid currentColor;
+    color: #618F62 !important;
+    padding: 6px 16px; }
 
 .btn-active,
 .mixitup-control-active {
@@ -49,6 +89,8 @@ body {
     .navbar .nav-link.nav-active {
       font-weight: bold;
       text-decoration: underline; }
+      .navbar .nav-link.nav-active:hover {
+        text-decoration: underline; }
   .navbar.bg-faded {
     background: linear-gradient(rgba(0, 0, 0, 0.5) 27%, rgba(255, 255, 255, 0) 100%); }
   .navbar.navbar-dark .nav-link {
@@ -113,12 +155,6 @@ body {
         width: calc(100% - 30px); }
       #mixitup-container .row .portfolio-item:hover .portfolio-title {
         opacity: 1; }
-  #mixitup-container #mixitup-showless {
-    cursor: pointer;
-    color: #007bff;
-    display: block;
-    padding-top: 20px;
-    text-decoration: underline; }
 
 .content {
   padding: 50px 0; }

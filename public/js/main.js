@@ -407,8 +407,14 @@ var portfolio = {
   maxFilters: 4,
   grid: 3,
   load: function() {
+    if ($(this).attr("id") == "mixitup-loadmore") {
+      if ($(this).find(".bouncer").is(":visible")) return false;
+
+      $(this).find("span").hide();
+      $(this).find(".bouncer").show();
+    }
+
     portfolio.page++;
-    $("#mixitup-loadmore").remove();
 
     $.ajax({
       url: "https://www.behance.net/v2/users/" + portfolio.user + "/projects",
@@ -466,19 +472,38 @@ var portfolio = {
 
           if (j == (categoriesSorted.length - 1) && categoriesSorted.length > portfolio.maxFilters) {
             $("#mixitup-container .filters .btn.showmore, #mixitup-container .filters #mixitup-showless").remove();
-            $("#mixitup-container .filters").append("<button class='btn showmore' type='button'>Show more...</button>");
-            $("#mixitup-container .filters").append("<a id='mixitup-showless'>Show less</a>");
+            $("#mixitup-container .filters").append("<button class='btn showmore btn-invert' type='button'>Show more...</button>");
+            $("#mixitup-container .filters").append("<a id='mixitup-showless' class='btn btn-invert'>Show less</a>");
           }
         }
+
+        $("#mixitup-loadmore").remove();
 
         if (data.projects.length == 12) {
           $el = $("<button />");
           $el
             .addClass("btn")
-            .attr("type", "button")
             .attr("id", "mixitup-loadmore")
+            .click(portfolio.load)
+            .append("<span />")
+            .find("span:last")
             .text("Load more...")
-            .click(portfolio.load);
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bouncer")
+            .hide()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce1")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce2")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce3");
           $("#mixitup-container").append($el);
         }
 

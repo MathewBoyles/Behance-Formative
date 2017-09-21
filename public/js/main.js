@@ -29,6 +29,35 @@ function loadTmpl(tmpl) {
   });
 }
 
+function apiError() {
+  $("#loading").hide();
+  $("#apiError").remove();
+  $el = $("<div />");
+  $el
+    .attr("id", "apiError")
+    .addClass("popup")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-backdrop")
+    .parent()
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-container")
+    .addClass("row")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-content")
+    .addClass("col-12")
+    .append("<img />")
+    .find("img:last")
+    .attr("src", "ERROR");
+  $("body").append($el);
+  $("#apiError").popup("show", {
+    click: false,
+    keyboard: false
+  });
+}
+
 loadTmpl("popup");
 
 // Source: items.js
@@ -74,9 +103,11 @@ function showItem(item) {
             window.history.pushState({}, document.title, window.location.href.split("#")[0]);
           });
           $("#loading").hide();
-        }
+        },
+        error: apiError
       });
-    }
+    },
+    error: apiError
   });
 }
 
@@ -371,6 +402,7 @@ var portfolio = {
   load: function() {
     portfolio.page++;
     $("#mixitup-loadmore").remove();
+
     $.ajax({
       url: "https://www.behance.net/v2/users/" + portfolio.user + "/projects",
       data: {
@@ -386,6 +418,7 @@ var portfolio = {
             if (portfolio.categories.indexOf(c_name) == -1) portfolio.categories.push(c_name);
             portfolio.categoriesCount[c_name] = portfolio.categoriesCount[c_name] ? (Number(portfolio.categoriesCount[c_name]) + 1) : 1;
           }
+
           $el = $("<div />");
           for (var i_tag = 0; i_tag < data.projects[i].fields.length; i_tag++) $el.addClass("tag-" + (data.projects[i].fields[i_tag].replace(/ /g, "").replace(/[^\w\s]/gi, "").toLowerCase()));
           $el
@@ -464,9 +497,7 @@ var portfolio = {
 
         $("#loading").fadeOut();
       },
-      error: function() {
-        console.log("something went wrong.");
-      }
+      error: apiError
     });
   }
 };
@@ -497,7 +528,8 @@ if ($("body").attr("id") == "profile") {
       $("#profile-sidebar").html(html);
 
       portfolio.load();
-    }
+    },
+    error: apiError
   });
 }
 

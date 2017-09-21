@@ -9,6 +9,7 @@ var portfolio = {
   load: function() {
     portfolio.page++;
     $("#mixitup-loadmore").remove();
+
     $.ajax({
       url: "https://www.behance.net/v2/users/" + portfolio.user + "/projects",
       data: {
@@ -24,6 +25,7 @@ var portfolio = {
             if (portfolio.categories.indexOf(c_name) == -1) portfolio.categories.push(c_name);
             portfolio.categoriesCount[c_name] = portfolio.categoriesCount[c_name] ? (Number(portfolio.categoriesCount[c_name]) + 1) : 1;
           }
+
           $el = $("<div />");
           for (var i_tag = 0; i_tag < data.projects[i].fields.length; i_tag++) $el.addClass("tag-" + (data.projects[i].fields[i_tag].replace(/ /g, "").replace(/[^\w\s]/gi, "").toLowerCase()));
           $el
@@ -102,9 +104,7 @@ var portfolio = {
 
         $("#loading").fadeOut();
       },
-      error: function() {
-        console.log("something went wrong.");
-      }
+      error: apiError
     });
   }
 };

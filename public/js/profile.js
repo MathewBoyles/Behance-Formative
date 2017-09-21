@@ -21,6 +21,7 @@ if ($("body").attr("id") == "profile") {
       $("#profile-sidebar").html(html);
 
       portfolio.load();
-    }
+    },
+    error: apiError
   });
 }

@@ -40,9 +40,11 @@ function showItem(item) {
             window.history.pushState({}, document.title, window.location.href.split("#")[0]);
           });
           $("#loading").hide();
-        }
+        },
+        error: apiError
       });
-    }
+    },
+    error: apiError
   });
 }
 

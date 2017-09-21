@@ -28,4 +28,33 @@ function loadTmpl(tmpl) {
   });
 }
 
+function apiError() {
+  $("#loading").hide();
+  $("#apiError").remove();
+  $el = $("<div />");
+  $el
+    .attr("id", "apiError")
+    .addClass("popup")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-backdrop")
+    .parent()
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-container")
+    .addClass("row")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-content")
+    .addClass("col-12")
+    .append("<img />")
+    .find("img:last")
+    .attr("src", "ERROR");
+  $("body").append($el);
+  $("#apiError").popup("show", {
+    click: false,
+    keyboard: false
+  });
+}
+
 loadTmpl("popup");

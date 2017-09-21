@@ -1,5 +1,5 @@
 var config = {
-  user_id: "Lightfarm",
+  user_id: "lightfarm",
   client_id: "THVb3iZMcUlK7Qzh2qgcbCcxk0seZlpV"
 };
 

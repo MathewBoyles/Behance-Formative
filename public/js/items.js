@@ -1,7 +1,7 @@
 function showItem(item) {
   $("#loading").fadeIn();
 
-  if(isNaN(item)) item = $(this).data("projectData").id;
+  if (isNaN(item)) item = $(this).data("projectData").id;
 
   $.ajax({
     url: "https://www.behance.net/v2/projects/" + item,
@@ -21,6 +21,11 @@ function showItem(item) {
         },
         dataType: "jsonp",
         success: function(data) {
+          var popupPreviousTitle = document.title;
+
+          document.title = context.name;
+          window.location.hash = "view=" + context.id;
+
           context.comments = data.comments;
 
           var template = $("#portfolioPopup").html();
@@ -29,10 +34,15 @@ function showItem(item) {
 
           $("#portfolioPopupModal").remove();
           $("body").append(html);
-          $("#portfolioPopupModal").popup();
+          $("#portfolioPopupModal").popup().bind("closed", function() {
+            document.title = popupPreviousTitle;
+            window.history.pushState({}, document.title, window.location.href.split("#")[0]);
+          });
           $("#loading").hide();
         }
       });
     }
   });
 }
+
+if (window.location.hash.substr(0, 6) == "#view=" && !isNaN(window.location.hash.substr(6))) showItem(window.location.hash.substr(6));

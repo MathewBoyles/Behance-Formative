@@ -29,7 +29,7 @@ loadTmpl("popup");
 function showItem(item) {
   $("#loading").fadeIn();
 
-  if(isNaN(item)) item = $(this).data("projectData").id;
+  if (isNaN(item)) item = $(this).data("projectData").id;
 
   $.ajax({
     url: "https://www.behance.net/v2/projects/" + item,
@@ -49,6 +49,11 @@ function showItem(item) {
         },
         dataType: "jsonp",
         success: function(data) {
+          var popupPreviousTitle = document.title;
+
+          document.title = context.name;
+          window.location.hash = "view=" + context.id;
+
           context.comments = data.comments;
 
           var template = $("#portfolioPopup").html();
@@ -57,13 +62,18 @@ function showItem(item) {
 
           $("#portfolioPopupModal").remove();
           $("body").append(html);
-          $("#portfolioPopupModal").popup();
+          $("#portfolioPopupModal").popup().bind("closed", function() {
+            document.title = popupPreviousTitle;
+            window.history.pushState({}, document.title, window.location.href.split("#")[0]);
+          });
           $("#loading").hide();
         }
       });
     }
   });
 }
+
+if (window.location.hash.substr(0, 6) == "#view=" && !isNaN(window.location.hash.substr(6))) showItem(window.location.hash.substr(6));
 
 // Source: map.js
 var mapReady = false;
@@ -300,9 +310,12 @@ $.fn.popup = function(fun, options) {
 
   if (fun == "hide") {
     $("body").css("overflow", "auto");
+    this.trigger("close");
     this.find(".popup-container")
       .animate({
         "top": 0 - (this.find(".popup-container").height() * 1.5)
+      }, 500, function() {
+        $(this).trigger("closed");
       });
     this.find(".popup-backdrop")
       .fadeOut(500, function() {
@@ -319,6 +332,8 @@ $.fn.popup = function(fun, options) {
       .show()
       .animate({
         "top": "50%"
+      }, 500, function() {
+        $(this).trigger("opened");
       });
     if (this.data("popupSettings").backdrop) this.find(".popup-backdrop").fadeIn(500);
     else this.find(".popup-backdrop").css({
@@ -466,6 +481,8 @@ if ($("body").attr("id") == "profile") {
     },
     dataType: "jsonp",
     success: function(data) {
+      document.title = data.user.display_name + " | " + document.title;
+
       var template = $("#profileData").html();
       var compiledTemplate = Template7.compile(template);
 

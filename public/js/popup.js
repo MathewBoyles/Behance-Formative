@@ -28,9 +28,12 @@ $.fn.popup = function(fun, options) {
 
   if (fun == "hide") {
     $("body").css("overflow", "auto");
+    this.trigger("close");
     this.find(".popup-container")
       .animate({
         "top": 0 - (this.find(".popup-container").height() * 1.5)
+      }, 500, function() {
+        $(this).trigger("closed");
       });
     this.find(".popup-backdrop")
       .fadeOut(500, function() {
@@ -47,6 +50,8 @@ $.fn.popup = function(fun, options) {
       .show()
       .animate({
         "top": "50%"
+      }, 500, function() {
+        $(this).trigger("opened");
       });
     if (this.data("popupSettings").backdrop) this.find(".popup-backdrop").fadeIn(500);
     else this.find(".popup-backdrop").css({

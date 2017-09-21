@@ -1,10 +1,16 @@
 // Source: script.js
+var cookies = {};
+var cookiesTEMP = document.cookie.split(";");
+
+for (var i = 0; i < cookiesTEMP.length; i++) {
+  var cookieTHIS = cookiesTEMP[i].split("=");
+  cookies[cookieTHIS[0]] = cookieTHIS[1];
+}
+
 var config = {
   user_id: "lightfarm",
-  client_id: "THVb3iZMcUlK7Qzh2qgcbCcxk0seZlpV"
+  client_id: cookies.CLIENT_ID ? cookies.CLIENT_ID : "8hRTUTjbwsJrLqGZ0kgxT48GBmkwwM5g"
 };
-
-// 8hRTUTjbwsJrLqGZ0kgxT48GBmkwwM5g
 
 function numberFormat(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -23,13 +29,42 @@ function loadTmpl(tmpl) {
   });
 }
 
+function apiError() {
+  $("#loading").hide();
+  $("#apiError").remove();
+  $el = $("<div />");
+  $el
+    .attr("id", "apiError")
+    .addClass("popup")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-backdrop")
+    .parent()
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-container")
+    .addClass("row")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-content")
+    .addClass("col-12")
+    .append("<img />")
+    .find("img:last")
+    .attr("src", "ERROR");
+  $("body").append($el);
+  $("#apiError").popup("show", {
+    click: false,
+    keyboard: false
+  });
+}
+
 loadTmpl("popup");
 
 // Source: items.js
 function showItem(item) {
   $("#loading").fadeIn();
 
-  if(isNaN(item)) item = $(this).data("projectData").id;
+  if (isNaN(item)) item = $(this).data("projectData").id;
 
   $.ajax({
     url: "https://www.behance.net/v2/projects/" + item,
@@ -49,21 +84,34 @@ function showItem(item) {
         },
         dataType: "jsonp",
         success: function(data) {
+          var popupPreviousTitle = document.title;
+
+          document.title = context.name;
+          window.location.hash = "view=" + context.id;
+
           context.comments = data.comments;
 
           var template = $("#portfolioPopup").html();
+          template = template.replace(/<!--b-->/g, "");
           var compiledTemplate = Template7.compile(template);
           var html = compiledTemplate(context);
 
           $("#portfolioPopupModal").remove();
           $("body").append(html);
-          $("#portfolioPopupModal").popup();
+          $("#portfolioPopupModal").popup().bind("closed", function() {
+            document.title = popupPreviousTitle;
+            window.history.pushState({}, document.title, window.location.href.split("#")[0]);
+          });
           $("#loading").hide();
-        }
+        },
+        error: apiError
       });
-    }
+    },
+    error: apiError
   });
 }
+
+if (window.location.hash.substr(0, 6) == "#view=" && !isNaN(window.location.hash.substr(6))) showItem(window.location.hash.substr(6));
 
 // Source: map.js
 var mapReady = false;
@@ -300,9 +348,12 @@ $.fn.popup = function(fun, options) {
 
   if (fun == "hide") {
     $("body").css("overflow", "auto");
+    this.trigger("close");
     this.find(".popup-container")
       .animate({
         "top": 0 - (this.find(".popup-container").height() * 1.5)
+      }, 500, function() {
+        $(this).trigger("closed");
       });
     this.find(".popup-backdrop")
       .fadeOut(500, function() {
@@ -319,6 +370,8 @@ $.fn.popup = function(fun, options) {
       .show()
       .animate({
         "top": "50%"
+      }, 500, function() {
+        $(this).trigger("opened");
       });
     if (this.data("popupSettings").backdrop) this.find(".popup-backdrop").fadeIn(500);
     else this.find(".popup-backdrop").css({
@@ -349,6 +402,7 @@ var portfolio = {
   load: function() {
     portfolio.page++;
     $("#mixitup-loadmore").remove();
+
     $.ajax({
       url: "https://www.behance.net/v2/users/" + portfolio.user + "/projects",
       data: {
@@ -364,6 +418,7 @@ var portfolio = {
             if (portfolio.categories.indexOf(c_name) == -1) portfolio.categories.push(c_name);
             portfolio.categoriesCount[c_name] = portfolio.categoriesCount[c_name] ? (Number(portfolio.categoriesCount[c_name]) + 1) : 1;
           }
+
           $el = $("<div />");
           for (var i_tag = 0; i_tag < data.projects[i].fields.length; i_tag++) $el.addClass("tag-" + (data.projects[i].fields[i_tag].replace(/ /g, "").replace(/[^\w\s]/gi, "").toLowerCase()));
           $el
@@ -442,9 +497,7 @@ var portfolio = {
 
         $("#loading").fadeOut();
       },
-      error: function() {
-        console.log("something went wrong.");
-      }
+      error: apiError
     });
   }
 };
@@ -466,6 +519,8 @@ if ($("body").attr("id") == "profile") {
     },
     dataType: "jsonp",
     success: function(data) {
+      document.title = data.user.display_name + " | " + document.title;
+
       var template = $("#profileData").html();
       var compiledTemplate = Template7.compile(template);
 
@@ -473,7 +528,8 @@ if ($("body").attr("id") == "profile") {
       $("#profile-sidebar").html(html);
 
       portfolio.load();
-    }
+    },
+    error: apiError
   });
 }
 

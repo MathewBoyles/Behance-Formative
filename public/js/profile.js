@@ -12,6 +12,8 @@ if ($("body").attr("id") == "profile") {
     },
     dataType: "jsonp",
     success: function(data) {
+      document.title = data.user.display_name + " | " + document.title;
+
       var template = $("#profileData").html();
       var compiledTemplate = Template7.compile(template);
 
@@ -19,6 +21,7 @@ if ($("body").attr("id") == "profile") {
       $("#profile-sidebar").html(html);
 
       portfolio.load();
-    }
+    },
+    error: apiError
   });
 }

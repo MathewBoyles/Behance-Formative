@@ -18,15 +18,15 @@ $popup-padding: 80px;
     width: calc(100% - #{$popup-padding} - #{$popup-padding});
     z-index: 1001;
 
-     > .popup-content,
-    > .popup-sidebar {
+     > .popup-sidebar,
+    > .popup-content {
       overflow-y: scroll;
       padding: 0;
     }
 
     > .popup-content {
-       > img,
-      > div {
+       > div,
+      > img {
         display: block;
         margin: 0 auto 15px;
         max-width: 100%;
@@ -39,7 +39,7 @@ $popup-padding: 80px;
 
         &:last-child {
           &:not(.popup-text) {
-            margin-bottom: 0;
+            margin-bottom: 0 !important;
           }
         }
       }
@@ -109,8 +109,8 @@ $popup-padding: 80px;
         }
       }
 
-       > .popup-contributors,
-      > .popup-comments {
+       > .popup-comments,
+      > .popup-contributors {
         list-style: none;
         margin: 0 40px;
         padding: 0 0 10px;

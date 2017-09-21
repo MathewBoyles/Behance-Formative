@@ -4,7 +4,7 @@
       <div class="popup-content col-8">
         {{#modules}}
           {{#js_if "this.type == 'image'"}}
-          <img src="{{sizes.max_1200}}" />
+          <img src="{{#if sizes.max_1200}}{{sizes.max_1200}}{{else}}{{src}}{{/if}}" />
           {{/js_if}}
           {{#js_if "this.type == 'text'"}}
           <div class="popup-text">{{text}}</div>
@@ -42,7 +42,7 @@
         <ul class="popup-contributors">
           {{#owners}}
           <li>
-            <a href="{{#js_if "this.username == 'lightfarm'"}}/{{else}}/profile/{{username}}{{/js_if}}">
+            <a href="{{#js_if "this.username == config.user_id"}}/{{else}}/profile/{{username}}{{/js_if}}">
               <img src="{{images.50}}" />
               <strong>{{display_name}}</strong>
             </a>
@@ -59,7 +59,7 @@
               <strong><a href="{{user.url}}" target="_blank">{{user.display_name}}</a></strong>
               <span>{{js "moment(this.created_on * 1000).fromNow()"}}</span>
             </span>
-            <span class="comment-text">{{comment}}</span>
+            <span class="comment-text">{{js "breakLines(this.comment)"}}</span>
           </li>
           {{/comments}}
         </ul>

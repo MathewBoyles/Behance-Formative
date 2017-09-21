@@ -11,6 +11,7 @@ app.use(function(request, reponse, next) {
 app.use(function(request, reponse, next) {
   var pageName = request.url.split("?")[0];
   if(pageName == "/home") pageName = "/index";
+  else if(pageName.substr(0,9) == "/profile/") pageName = "/profile";
 
   var fullLink = path.join(__dirname, "public", pageName + ".html");
   if(fs.existsSync(fullLink)) {

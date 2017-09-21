@@ -53,6 +53,8 @@ var portfolio = {
           $("#mixitup-container .row").append($el);
         }
 
+        $("#mixitup-container .portfolio-item:not(.faded-done)").hide().addClass("faded-done").fadeIn(500);
+
         var categoriesSorted = Object.keys(portfolio.categoriesCount).sort(function(a, b) {
           return portfolio.categoriesCount[a] - portfolio.categoriesCount[b];
         });

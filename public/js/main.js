@@ -1,10 +1,16 @@
 // Source: script.js
+var cookies = {};
+var cookiesTEMP = document.cookie.split(";");
+
+for (var i = 0; i < cookiesTEMP.length; i++) {
+  var cookieTHIS = cookiesTEMP[i].split("=");
+  cookies[cookieTHIS[0]] = cookieTHIS[1];
+}
+
 var config = {
   user_id: "lightfarm",
-  client_id: "THVb3iZMcUlK7Qzh2qgcbCcxk0seZlpV"
+  client_id: cookies.CLIENT_ID ? cookies.CLIENT_ID : "8hRTUTjbwsJrLqGZ0kgxT48GBmkwwM5g"
 };
-
-// 8hRTUTjbwsJrLqGZ0kgxT48GBmkwwM5g
 
 function numberFormat(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -57,6 +63,7 @@ function showItem(item) {
           context.comments = data.comments;
 
           var template = $("#portfolioPopup").html();
+          template = template.replace(/<!--b-->/g, "");
           var compiledTemplate = Template7.compile(template);
           var html = compiledTemplate(context);
 

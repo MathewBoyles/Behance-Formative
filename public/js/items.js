@@ -29,6 +29,7 @@ function showItem(item) {
           context.comments = data.comments;
 
           var template = $("#portfolioPopup").html();
+          template = template.replace(/<!--b-->/g, "");
           var compiledTemplate = Template7.compile(template);
           var html = compiledTemplate(context);
 

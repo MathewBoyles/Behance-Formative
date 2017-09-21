@@ -1,7 +1,7 @@
 <script id="portfolioPopup" type="text/template7">
   <div class="popup" id="portfolioPopupModal">
     <div class="popup-container row">
-      <div class="popup-content col-8">
+      <div class="popup-content col-8" style="background:#{{styles.background.color}}">
         {{#modules}}
           {{#js_if "this.type == 'image'"}}
           <img src="{{#if sizes.max_1200}}{{sizes.max_1200}}{{else}}{{src}}{{/if}}" />
@@ -49,6 +49,7 @@
           </li>
           {{/owners}}
         </ul>
+        {{#if comments.length}}
         <hr />
         <h4>Comments</h3>
         <ul class="popup-comments">
@@ -63,8 +64,16 @@
           </li>
           {{/comments}}
         </ul>
+        {{/if}}
       </div>
     </div>
     <div class="popup-backdrop"></div>
   </div>
+
+  <st<!--b-->yle>
+  #portfolioPopupModal .popup-content > img,
+  #portfolioPopupModal .popup-content > div {
+    margin-bottom: {{styles.spacing.modules.bottom_margin}}px;
+  }
+  </sty<!--b-->le>
 </script>

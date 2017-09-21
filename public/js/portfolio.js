@@ -10,7 +10,7 @@ var portfolio = {
     portfolio.page++;
     $("#mixitup-loadmore").remove();
     $.ajax({
-      url: "http://www.behance.net/v2/users/" + portfolio.user + "/projects",
+      url: "https://www.behance.net/v2/users/" + portfolio.user + "/projects",
       data: {
         client_id: config.client_id,
         per_page: 12,

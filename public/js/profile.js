@@ -6,7 +6,7 @@ if ($("body").attr("id") == "profile") {
   portfolio.user = profileID;
 
   $.ajax({
-    url: "http://www.behance.net/v2/users/" + profileID,
+    url: "https://www.behance.net/v2/users/" + profileID,
     data: {
       client_id: config.client_id
     },

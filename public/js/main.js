@@ -10,6 +10,10 @@ function numberFormat(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function breakLines(str) {
+  return str.replace(/(?:\r\n|\r|\n)/g, "<br />");
+}
+
 function loadTmpl(tmpl) {
   $.ajax({
     url: "/tmpl/" + tmpl + ".html",

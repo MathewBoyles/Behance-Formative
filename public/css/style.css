@@ -23,10 +23,11 @@ body {
 
 .btn {
   background-color: #618F62;
-  color: white;
   border-radius: 20px;
-  padding: 8px 16px;
-  margin: 5px 5px; }
+  color: white;
+  cursor: pointer;
+  margin: 5px 5px;
+  padding: 8px 16px; }
 
 .btn-active,
 .mixitup-control-active {
@@ -101,6 +102,7 @@ body {
         background-color: lightGrey; }
       #mixitup-container .row .portfolio-item .portfolio-title {
         background: #828282;
+        background: rgba(130, 130, 130, 0.9);
         bottom: 15px;
         left: 15px;
         opacity: 0;

@@ -59,7 +59,7 @@
               <strong><a href="{{user.url}}" target="_blank">{{user.display_name}}</a></strong>
               <span>{{js "moment(this.created_on * 1000).fromNow()"}}</span>
             </span>
-            <span class="comment-text">{{comment}}</span>
+            <span class="comment-text">{{js "breakLines(this.comment)"}}</span>
           </li>
           {{/comments}}
         </ul>

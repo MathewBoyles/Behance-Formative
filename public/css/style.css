@@ -292,6 +292,9 @@ body {
       display: block;
       margin: 0 auto 15px;
       max-width: 100%; }
+      .popup > .popup-container > .popup-content > div.has-caption,
+      .popup > .popup-container > .popup-content > img.has-caption {
+        margin-bottom: 15px !important; }
       .popup > .popup-container > .popup-content > div:first-child.popup-text,
       .popup > .popup-container > .popup-content > img:first-child.popup-text {
         margin-top: 15px; }
@@ -306,6 +309,7 @@ body {
       padding-bottom: 56%;
       position: relative; }
       .popup > .popup-container > .popup-content > .popup-embed iframe {
+        border: none;
         position: absolute;
         width: 100% !important;
         height: 100% !important;
@@ -450,6 +454,10 @@ footer {
             text-decoration: underline; }
   footer .footer-logo img {
     margin-top: -2px; }
+  footer .pby-behance {
+    float: left;
+    margin-top: 10px;
+    width: 150px; }
   footer .copyright {
     text-align: right;
     opacity: 0.5;

@@ -4,12 +4,19 @@
       <div class="popup-content col-8" style="background:#{{styles.background.color}}">
         {{#modules}}
           {{#js_if "this.type == 'image'"}}
-          <img src="{{#if sizes.max_1200}}{{sizes.max_1200}}{{else}}{{src}}{{/if}}" />
+          <img src="{{#if sizes.max_1200}}{{sizes.max_1200}}{{else}}{{src}}{{/if}}"{{#if caption}} class="has-caption"{{/if}} />
+          {{#if caption}}<div class="popup-text popup-caption">{{caption}}</div>{{/if}}
           {{/js_if}}
           {{#js_if "this.type == 'text'"}}
           <div class="popup-text">{{text}}</div>
           {{/js_if}}
           {{#js_if "this.type == 'embed'"}}
+          <div class="popup-embed">{{embed}}</div>
+          {{/js_if}}
+          {{#js_if "this.type == 'audio'"}}
+          <div class="popup-embed">{{embed}}</div>
+          {{/js_if}}
+          {{#js_if "this.type == 'video'"}}
           <div class="popup-embed">{{embed}}</div>
           {{/js_if}}
         {{/modules}}
@@ -74,6 +81,30 @@
   #portfolioPopupModal .popup-content > img,
   #portfolioPopupModal .popup-content > div {
     margin-bottom: {{styles.spacing.modules.bottom_margin}}px;
+  }
+  #portfolioPopupModal .popup-content > div.popup-caption {
+    color: {{styles.text.caption.color}};
+    display: {{styles.text.caption.display}};
+    font-family: {{styles.text.caption.font_family}};
+    font-size: {{styles.text.caption.font_size}};
+    font-style: {{styles.text.caption.font_style}};
+    font-weight: {{styles.text.caption.font_weight}};
+    line-height: {{styles.text.caption.line_height}};
+    text-align: {{styles.text.caption.text_align}};
+    text-decoration: {{styles.text.caption.text_decoration}};
+    text-transform: {{styles.text.caption.text_transform}};
+  }
+  #portfolioPopupModal .popup-content a {
+    color: {{styles.text.link.color}};
+    display: {{styles.text.link.display}};
+    font-family: {{styles.text.link.font_family}};
+    font-size: {{styles.text.link.font_size}};
+    font-style: {{styles.text.link.font_style}};
+    font-weight: {{styles.text.link.font_weight}};
+    line-height: {{styles.text.link.line_height}};
+    text-align: {{styles.text.link.text_align}};
+    text-decoration: {{styles.text.link.text_decoration}};
+    text-transform: {{styles.text.link.text_transform}};
   }
   </sty<!--b-->le>
 </script>

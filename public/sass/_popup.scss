@@ -31,6 +31,10 @@ $popup-padding: 80px;
         margin: 0 auto 15px;
         max-width: 100%;
 
+        &.has-caption {
+          margin-bottom: 15px !important;
+        }
+
         &:first-child {
           &.popup-text {
             margin-top: 15px;
@@ -55,6 +59,7 @@ $popup-padding: 80px;
         position: relative;
 
         iframe {
+          border: none;
           position: absolute;
           width: 100%!important;
           height: 100%!important;

@@ -10,11 +10,12 @@
 		&:not(.show) {
 			.btn {
 				&.hide:not(.mixitup-control-active) {
-					display: none!important;
+					display: none !important;
 				}
 			}
+
 			#mixitup-showless {
-				display: none!important;
+				display: none !important;
 			}
 		}
 
@@ -59,14 +60,6 @@
 				}
 			}
 		}
-	}
-
-	#mixitup-showless {
-		// cursor: pointer;
-		// color: #007bff;
-		// display: block;
-		// padding-top: 20px;
-		// text-decoration: underline;
 	}
 }
 

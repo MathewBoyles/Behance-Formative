@@ -520,7 +520,7 @@ var portfolio = {
         });
 
         if (portfolio.mixer) portfolio.mixer.destroy();
-        portfolio.mixer = mixitup($("#mixitup-container"), {
+        portfolio.mixer = mixitup("#mixitup-container", {
           selectors: {
             target: ".portfolio-item"
           },

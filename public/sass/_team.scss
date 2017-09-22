@@ -1,36 +1,7 @@
-.team-link {
-	background: $secondaryColor;
-	color: $primaryColor;
-	overflow: auto;
-	padding: 40px;
-	transition: background 0.5s;
-
-	.col-md-4,
-	.col-md-8 {
-		float: left;
-		height: 100%;
-		vertical-align: middle;
-	}
-
-	.fa-chevron-right {
-		float: right;
-		margin-top: 25px;
-	}
-
-	a {
-		color: inherit;
-		text-decoration: none;
-	}
-
-	&:hover {
-		background: darken($secondaryColor, 5);
-	}
-}
-
 .team-row {
 	> .team-memeber {
 		position: relative;
-    text-align: center;
+		text-align: center;
 
 		> .team-info {
 			background: rgba(43, 43, 43, 0.52);
@@ -50,7 +21,7 @@
 				position: absolute;
 				text-decoration: none;
 				top: 0;
-		    width: 100%;
+				width: 100%;
 
 				> h3 {
 					padding-top: 55%;

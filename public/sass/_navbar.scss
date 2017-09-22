@@ -28,6 +28,35 @@
 		}
 	}
 
+	.navbar-toggler {
+		border-color: white;
+
+		> .navbar-toggler-icon {
+			background-image: url("../img/nav-light.svg");
+		}
+	}
+	@media (max-width: 991px) {
+		.navbar-collapse {
+			.navbar-nav {
+				margin-top: 5px;
+
+				> li {
+					margin-top: 5px;
+
+					> a {
+						background: rgba(0, 0, 0, 0.4);
+						color: #FFF !important;
+						padding: 10px 15px;
+
+						&.nav-active {
+							background: rgba(0, 0, 0, 0.8);
+						}
+					}
+				}
+			}
+		}
+	}
+
 	&.bg-faded {
 		background: linear-gradient(rgba(0, 0, 0, 0.50) 27%, rgba(255, 255, 255, 0) 100%);
 	}
@@ -35,6 +64,14 @@
 	&.navbar-dark {
 		.nav-link {
 			color: #000 !important;
+		}
+
+		.navbar-toggler {
+			border-color: black;
+
+			> .navbar-toggler-icon {
+				background-image: url("../img/nav-dark.svg");
+			}
 		}
 	}
 }

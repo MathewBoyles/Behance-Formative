@@ -41,6 +41,7 @@ function showItem(item) {
           $("#portfolioPopupModal").popup().bind("closed", function() {
             document.title = popupPreviousTitle;
             window.history.pushState({}, document.title, window.location.href.split("#")[0]);
+            $("#portfolioPopupModal").remove();
           });
           $("#loading").hide();
         },

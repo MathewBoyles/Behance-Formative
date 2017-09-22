@@ -2,7 +2,9 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>About | Lightfarm Design Studio</title>
   <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
   <link rel="stylesheet" href="/packages/bootstrap/dist/css/bootstrap.css">
@@ -65,7 +67,7 @@
       <script id="teamRows" type="text/template7">
         <div class="row team-row">
           {{#team}}
-          <div class="col-3 team-memeber">
+          <div class="col-md-3 team-memeber">
             <div class="team-info">
               <a href="/profile/{{behance}}">
                 <h3>{{name}}</h3>
@@ -74,10 +76,6 @@
             </div>
             <img src="{{image}}" />
           </div>
-            {{#if lineBr}}
-        </div>
-        <div class="row team-row">
-            {{/if}}
           {{/team}}
         </div>
       </script>

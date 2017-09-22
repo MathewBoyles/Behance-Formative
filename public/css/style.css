@@ -130,6 +130,9 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; }
+  @media (max-width: 780px) {
+    .hero {
+      height: 150px; } }
 
 .quote-block {
   background-color: #02A798;
@@ -259,6 +262,7 @@ body {
       width: 100% !important; }
 
 .team-row > .team-memeber {
+  margin-bottom: 20px;
   position: relative;
   text-align: center; }
   .team-row > .team-memeber > .team-info {
@@ -292,8 +296,6 @@ body {
     width: 100%; }
   .team-row > .team-memeber:hover > .team-info {
     opacity: 1; }
-.team-row + .team-row {
-  margin-top: 20px; }
 
 .popup {
   color: #000;
@@ -408,7 +410,7 @@ body {
         color: #454545;
         display: block;
         margin-left: 60px;
-        word-break: break-all; }
+        word-break: break-word; }
   .popup > .popup-backdrop {
     background: #000;
     cursor: pointer;
@@ -427,6 +429,18 @@ body {
   .popup.popup-auto > .popup-container {
     height: auto;
     width: auto; }
+  @media (max-width: 767px) {
+    .popup > .popup-container {
+      height: calc(100% - 30px - 30px);
+      overflow: auto;
+      top: 50%;
+      width: calc(100% - 30px - 30px); }
+      .popup > .popup-container > .popup-sidebar {
+        border-top: 1px solid rgba(0, 0, 0, 0.1); }
+      .popup > .popup-container > .popup-sidebar,
+      .popup > .popup-container > .popup-content {
+        height: auto;
+        overflow: unset; } }
 
 #promo-vid {
   width: 100%;
@@ -443,9 +457,12 @@ body {
 
 #map {
   height: 100%;
-  width: 1024px;
+  max-width: 1024px;
   z-index: 1;
   margin: 0 auto; }
+  @media (max-width: 780px) {
+    #map {
+      display: none; } }
 
 .infoWindowText {
   color: black; }

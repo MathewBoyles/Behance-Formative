@@ -1,8 +1,11 @@
 #map {
   height: 100%;
-  width: 1024px;
+  max-width: 1024px;
   z-index: 1;
   margin: 0 auto;
+  @media (max-width: 780px) {
+    display: none;
+  }
 }
 
 .infoWindowText {

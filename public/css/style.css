@@ -57,6 +57,14 @@ body {
     -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s; }
 
+#apiError .popup-content {
+  overflow: auto; }
+  #apiError .popup-content > div {
+    max-width: 500px;
+    padding: 50px 40px; }
+    #apiError .popup-content > div > p {
+      margin: 0; }
+
 .btn {
   background: #618F62;
   border-radius: 20px;
@@ -411,6 +419,14 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000; }
+  .popup.popup-sm > .popup-container {
+    max-height: 500px; }
+  .popup.popup-xs > .popup-container {
+    max-height: 450px;
+    max-width: 800px; }
+  .popup.popup-auto > .popup-container {
+    height: auto;
+    width: auto; }
 
 #promo-vid {
   width: 100%;

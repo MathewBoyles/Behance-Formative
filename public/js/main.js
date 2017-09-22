@@ -36,6 +36,7 @@ function apiError() {
   $el
     .attr("id", "apiError")
     .addClass("popup")
+    .addClass("popup-auto")
     .append("<div />")
     .find("div:last")
     .addClass("popup-backdrop")
@@ -48,9 +49,15 @@ function apiError() {
     .find("div:last")
     .addClass("popup-content")
     .addClass("col-12")
-    .append("<img />")
-    .find("img:last")
-    .attr("src", "ERROR");
+    .append("<div />")
+    .find("div:last")
+    .append("<h5 />")
+    .find("h5:last")
+    .text("Oops, something has gone wrong!")
+    .parent()
+    .append("<p />")
+    .find("p:last")
+    .text("It appears your connection to the Behance database has been lost. Please reload and try again.");
   $("body").append($el);
   $("#apiError").popup("show", {
     click: false,

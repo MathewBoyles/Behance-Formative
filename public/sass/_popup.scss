@@ -194,4 +194,24 @@ $popup-padding: 80px;
     width: 100%;
     z-index: 1000;
   }
+
+  &.popup-sm {
+    > .popup-container {
+      max-height: 500px;
+    }
+  }
+
+  &.popup-xs {
+    > .popup-container {
+      max-height: 450px;
+      max-width: 800px;
+    }
+  }
+
+  &.popup-auto {
+    > .popup-container {
+      height: auto;
+      width: auto;
+    }
+  }
 }

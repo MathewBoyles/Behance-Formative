@@ -6,6 +6,14 @@ var portfolio = {
   page: 0,
   maxFilters: 4,
   grid: 3,
+  imgReady: function() {
+    $(this).parent().find(".portfolio-load").fadeOut(500);
+    $(this).parent().find(".portfolio-image-load").remove();
+    $(this)
+      .removeClass("portfolio-image-loading")
+      .attr("alt", $(this).attr("data-alt"))
+      .removeAttr("data-alt");
+  },
   load: function() {
     if ($(this).attr("id") == "mixitup-loadmore") {
       if ($(this).find(".bouncer").is(":visible")) return false;
@@ -38,10 +46,39 @@ var portfolio = {
             .addClass("portfolio-item")
             .addClass("col-md-" + portfolio.grid)
             .data("projectData", data.projects[i])
+            .append("<div />")
+            .find("div:last")
+            .addClass("portfolio-load")
+            .append("<div />")
+            .find("div:last")
+            .addClass("bouncer")
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce1")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce2")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce3")
+            .parent()
+            .parent()
+            .parent()
             .append("<img />")
             .find("img:last")
             .addClass("portfolio-image")
+            .addClass("portfolio-image-loading")
             .attr("src", data.projects[i].covers[404])
+            .attr("data-alt", data.projects[i].name)
+            .on("load", portfolio.imgReady)
+            .parent()
+            .append("<img />")
+            .find("img:last")
+            .addClass("portfolio-image")
+            .addClass("portfolio-image-load")
+            .attr("src", "/img/aRation.png")
             .attr("alt", data.projects[i].name)
             .parent()
             .append("<div />")

@@ -12,6 +12,11 @@ function showItem(item) {
     },
     dataType: "jsonp",
     success: function(data) {
+      if(data.project.mature_content) {
+        matureFilter(data.project.url);
+        return false;
+      }
+
       var context = data.project;
 
       $.ajax({

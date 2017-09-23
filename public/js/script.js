@@ -56,12 +56,45 @@ function apiError() {
     .parent()
     .append("<p />")
     .find("p:last")
-    .text("It appears your connection to the Behance database has been lost. Please reload and try again.");
+    .html("It appears your connection to the Behance database has been lost. Please reload and try again.");
   $("body").append($el);
   $("#apiError").popup("show", {
     click: false,
     keyboard: false
   });
+}
+
+function matureFilter(link) {
+  $("#loading").hide();
+  $("#matureFilter").remove();
+  $el = $("<div />");
+  $el
+    .attr("id", "matureFilter")
+    .addClass("popup")
+    .addClass("popup-auto")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-backdrop")
+    .parent()
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-container")
+    .addClass("row")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-content")
+    .addClass("col-12")
+    .append("<div />")
+    .find("div:last")
+    .append("<h5 />")
+    .find("h5:last")
+    .text("Mature Content Blocked")
+    .parent()
+    .append("<p />")
+    .find("p:last")
+    .html("Sorry, this project contains mature content which may not be displayed here. However, you may view this project on <a href='" + link + "' target='_blank'>Behance <small><i class='fa fa-external-link' aria-hidden='true'></i></a></small>.");
+  $("body").append($el);
+  $("#matureFilter").popup();
 }
 
 loadTmpl("popup");

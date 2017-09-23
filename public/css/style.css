@@ -57,12 +57,15 @@ body {
     -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s; }
 
-#apiError .popup-content {
+#apiError .popup-content,
+#matureFilter .popup-content {
   overflow: auto; }
-  #apiError .popup-content > div {
+  #apiError .popup-content > div,
+  #matureFilter .popup-content > div {
     max-width: 500px;
     padding: 50px 40px; }
-    #apiError .popup-content > div > p {
+    #apiError .popup-content > div > p,
+    #matureFilter .popup-content > div > p {
       margin: 0; }
 
 .btn {

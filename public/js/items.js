@@ -41,7 +41,7 @@ function showItem(item) {
           var compiledTemplate = Template7.compile(template);
           var html = compiledTemplate(context);
 
-          $("#portfolioPopupModal").remove();
+          $("#portfolioPopupModal,#portfolioPopupStyle").remove();
           $("body").append(html);
           $("#portfolioPopupModal").popup().bind("closed", function() {
             document.title = popupPreviousTitle;

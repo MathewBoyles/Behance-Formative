@@ -6,9 +6,23 @@ var portfolio = {
   page: 0,
   maxFilters: 4,
   grid: 3,
+  imgReady: function() {
+    $(this).parent().find(".portfolio-load").fadeOut(500);
+    $(this).parent().find(".portfolio-image-load").remove();
+    $(this)
+      .removeClass("portfolio-image-loading")
+      .attr("alt", $(this).attr("data-alt"))
+      .removeAttr("data-alt");
+  },
   load: function() {
+    if ($(this).attr("id") == "mixitup-loadmore") {
+      if ($(this).find(".bouncer").is(":visible")) return false;
+
+      $(this).find("span").hide();
+      $(this).find(".bouncer").show();
+    }
+
     portfolio.page++;
-    $("#mixitup-loadmore").remove();
 
     $.ajax({
       url: "https://www.behance.net/v2/users/" + portfolio.user + "/projects",
@@ -32,10 +46,39 @@ var portfolio = {
             .addClass("portfolio-item")
             .addClass("col-md-" + portfolio.grid)
             .data("projectData", data.projects[i])
+            .append("<div />")
+            .find("div:last")
+            .addClass("portfolio-load")
+            .append("<div />")
+            .find("div:last")
+            .addClass("bouncer")
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce1")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce2")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce3")
+            .parent()
+            .parent()
+            .parent()
             .append("<img />")
             .find("img:last")
             .addClass("portfolio-image")
+            .addClass("portfolio-image-loading")
             .attr("src", data.projects[i].covers[404])
+            .attr("data-alt", data.projects[i].name)
+            .on("load", portfolio.imgReady)
+            .parent()
+            .append("<img />")
+            .find("img:last")
+            .addClass("portfolio-image")
+            .addClass("portfolio-image-load")
+            .attr("src", "/img/aRation.png")
             .attr("alt", data.projects[i].name)
             .parent()
             .append("<div />")
@@ -46,6 +89,8 @@ var portfolio = {
             .click(showItem);
           $("#mixitup-container .row").append($el);
         }
+
+        $("#mixitup-container .portfolio-item:not(.faded-done)").hide().addClass("faded-done").fadeIn(500);
 
         var categoriesSorted = Object.keys(portfolio.categoriesCount).sort(function(a, b) {
           return portfolio.categoriesCount[a] - portfolio.categoriesCount[b];
@@ -66,19 +111,38 @@ var portfolio = {
 
           if (j == (categoriesSorted.length - 1) && categoriesSorted.length > portfolio.maxFilters) {
             $("#mixitup-container .filters .btn.showmore, #mixitup-container .filters #mixitup-showless").remove();
-            $("#mixitup-container .filters").append("<button class='btn showmore' type='button'>Show more...</button>");
-            $("#mixitup-container .filters").append("<a id='mixitup-showless'>Show less</a>");
+            $("#mixitup-container .filters").append("<button class='btn showmore btn-invert' type='button'>Show more...</button>");
+            $("#mixitup-container .filters").append("<a id='mixitup-showless' class='btn btn-invert'>Show less</a>");
           }
         }
+
+        $("#mixitup-loadmore").remove();
 
         if (data.projects.length == 12) {
           $el = $("<button />");
           $el
             .addClass("btn")
-            .attr("type", "button")
             .attr("id", "mixitup-loadmore")
+            .click(portfolio.load)
+            .append("<span />")
+            .find("span:last")
             .text("Load more...")
-            .click(portfolio.load);
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bouncer")
+            .hide()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce1")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce2")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce3");
           $("#mixitup-container").append($el);
         }
 
@@ -93,7 +157,7 @@ var portfolio = {
         });
 
         if (portfolio.mixer) portfolio.mixer.destroy();
-        portfolio.mixer = mixitup($("#mixitup-container"), {
+        portfolio.mixer = mixitup("#mixitup-container", {
           selectors: {
             target: ".portfolio-item"
           },

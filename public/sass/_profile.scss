@@ -3,7 +3,7 @@
 
   > .row {
     background: #FFF;
-    box-shadow: rgb(235, 235, 235) 0px 0px 20px 0px;
+    box-shadow: rgb(235, 235, 235) 0 0 20px 0;
     min-height: calc(100vh - 350px);
 
     #profile-sidebar {
@@ -50,7 +50,7 @@
           > .fa {
             float: left;
             font-size: 2em;
-            margin: -6px 0 0 0;
+            margin: -6px 0 0;
           }
 
           > span {

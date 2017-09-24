@@ -36,6 +36,7 @@ function apiError() {
   $el
     .attr("id", "apiError")
     .addClass("popup")
+    .addClass("popup-auto")
     .append("<div />")
     .find("div:last")
     .addClass("popup-backdrop")
@@ -48,9 +49,15 @@ function apiError() {
     .find("div:last")
     .addClass("popup-content")
     .addClass("col-12")
-    .append("<img />")
-    .find("img:last")
-    .attr("src", "ERROR");
+    .append("<div />")
+    .find("div:last")
+    .append("<h5 />")
+    .find("h5:last")
+    .text("Oops, something has gone wrong!")
+    .parent()
+    .append("<p />")
+    .find("p:last")
+    .html("It appears your connection to the Behance database has been lost. Please reload and try again.");
   $("body").append($el);
   $("#apiError").popup("show", {
     click: false,
@@ -58,9 +65,44 @@ function apiError() {
   });
 }
 
+function matureFilter(link) {
+  $("#loading").hide();
+  $("#matureFilter").remove();
+  $el = $("<div />");
+  $el
+    .attr("id", "matureFilter")
+    .addClass("popup")
+    .addClass("popup-auto")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-backdrop")
+    .parent()
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-container")
+    .addClass("row")
+    .append("<div />")
+    .find("div:last")
+    .addClass("popup-content")
+    .addClass("col-12")
+    .append("<div />")
+    .find("div:last")
+    .append("<h5 />")
+    .find("h5:last")
+    .text("Mature Content Blocked")
+    .parent()
+    .append("<p />")
+    .find("p:last")
+    .html("Sorry, this project contains mature content which may not be displayed here. However, you may view this project on <a href='" + link + "' target='_blank'>Behance <small><i class='fa fa-external-link' aria-hidden='true'></i></a></small>.");
+  $("body").append($el);
+  $("#matureFilter").popup();
+}
+
 loadTmpl("popup");
 
 // Source: items.js
+var pauseHash = false;
+
 function showItem(item) {
   $("#loading").fadeIn();
 
@@ -73,6 +115,11 @@ function showItem(item) {
     },
     dataType: "jsonp",
     success: function(data) {
+      if(data.project.mature_content) {
+        matureFilter(data.project.url);
+        return false;
+      }
+
       var context = data.project;
 
       $.ajax({
@@ -87,6 +134,7 @@ function showItem(item) {
           var popupPreviousTitle = document.title;
 
           document.title = context.name;
+          pauseHash = true;
           window.location.hash = "view=" + context.id;
 
           context.comments = data.comments;
@@ -96,11 +144,12 @@ function showItem(item) {
           var compiledTemplate = Template7.compile(template);
           var html = compiledTemplate(context);
 
-          $("#portfolioPopupModal").remove();
+          $("#portfolioPopupModal,#portfolioPopupStyle").remove();
           $("body").append(html);
           $("#portfolioPopupModal").popup().bind("closed", function() {
             document.title = popupPreviousTitle;
             window.history.pushState({}, document.title, window.location.href.split("#")[0]);
+            $("#portfolioPopupModal").remove();
           });
           $("#loading").hide();
         },
@@ -111,7 +160,11 @@ function showItem(item) {
   });
 }
 
-if (window.location.hash.substr(0, 6) == "#view=" && !isNaN(window.location.hash.substr(6))) showItem(window.location.hash.substr(6));
+$(window).on("hashchange", function() {
+  if (pauseHash) pauseHash = false;
+  else if (window.location.hash.substr(0, 6) == "#view=" && !isNaN(window.location.hash.substr(6))) showItem(window.location.hash.substr(6));
+  else if ($("#portfolioPopupModal").is(":visible")) $("#portfolioPopupModal").popup("hide");
+}).trigger("hashchange");
 
 // Source: map.js
 var mapReady = false;
@@ -297,17 +350,224 @@ function initMap() {
           lat: result[i].coords.lat,
           lng: result[i].coords.lng
         },
-        map: map
+        map: map,
+        icon: {
+          url: "img/marker.png"
+        }
       });
 
-      clickEvent();
+      clickEvents();
     }
 
     mapReady = true;
     if (teamReady) $("#loading").fadeOut();
 
-    function clickEvent() {
+    function clickEvents() {
       google.maps.event.addListener(marker, "click", (function(marker, i) {
+        return function() {
+          infowindow.setContent("<div class='info-window-text'><h5><img class='inline-logo' src='img/marker.png' alt='Small logo' width='20'>" + result[i].country + "</h5><br>" + result[i].address + "<br>Phone: " + result[i].phone + "<br>Email: <a href='mailto:" + result[i].email + "'>" + result[i].email + "</a></div>");
+          infowindow.open(map, marker);
+        };
+      })(marker, i));
+
+      google.maps.event.addListener(map, 'click', function() {
+        infowindow.close();
+      });
+    }
+  });
+}
+
+// Source: map.js
+function initMap() {
+  $.getJSON("js/markers.json", function(result) {
+    var mapOptions = {
+      center: new google.maps.LatLng(35, 10),
+      zoom: 2,
+      zoomControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false,
+      draggable: false,
+      styles: [{
+        "featureType": "all",
+        "elementType": "labels",
+        "stylers": [{
+            "color": "#ff0000"
+          },
+          {
+            "visibility": "off"
+          }
+        ]
+      }, {
+        "featureType": "all",
+        "elementType": "labels.text",
+        "stylers": [{
+            "color": "#c4c4c4"
+          },
+          {
+            "visibility": "off"
+          }
+        ]
+      }, {
+        "featureType": "all",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+            "color": "#c4c4c4"
+          },
+          {
+            "visibility": "off"
+          }
+        ]
+      }, {
+        "featureType": "all",
+        "elementType": "labels.icon",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      }, {
+        "featureType": "administrative",
+        "elementType": "geometry.fill",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      }, {
+        "featureType": "administrative",
+        "elementType": "labels",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      }, {
+        "featureType": "administrative",
+        "elementType": "labels.text.fill",
+        "stylers": [{
+          "color": "#c4c4c4"
+        }]
+      }, {
+        "featureType": "administrative.country",
+        "elementType": "labels",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      }, {
+        "featureType": "administrative.province",
+        "elementType": "labels",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      }, {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [{
+          "color": "#c4c4c4"
+        }]
+      }, {
+        "featureType": "landscape.man_made",
+        "elementType": "all",
+        "stylers": [{
+          "color": "#ff0000"
+        }]
+      }, {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [{
+            "visibility": "off"
+          },
+          {
+            "color": "#c4c4c4"
+          }
+        ]
+      }, {
+        "featureType": "poi",
+        "elementType": "geometry.fill",
+        "stylers": [{
+          "color": "#c4c4c4"
+        }]
+      }, {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [{
+            "saturation": -100
+          },
+          {
+            "lightness": 45
+          },
+          {
+            "color": "#c4c4c4"
+          }
+        ]
+      }, {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [{
+          "visibility": "simplified"
+        }]
+      }, {
+        "featureType": "road.arterial",
+        "elementType": "labels.icon",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      }, {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [{
+            "visibility": "off"
+          },
+          {
+            "color": "#c4c4c4"
+          }
+        ]
+      }, {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [{
+            "color": "#ffffff"
+          },
+          {
+            "visibility": "on"
+          }
+        ]
+      }, {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [{
+          "color": "#ffffff"
+        }]
+      }, {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [{
+          "visibility": "off"
+        }]
+      }, {
+        "featureType": "water",
+        "elementType": "labels.text",
+        "stylers": [{
+          "color": "#c4c4c4"
+        }]
+      }]
+    };
+
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    var infowindow = new google.maps.InfoWindow();
+    for (var i = 0; i < result.length; i++) {
+      var marker = new google.maps.Marker({
+        position: {
+          lat: result[i].coords.lat,
+          lng: result[i].coords.lng
+        },
+        map: map
+      });
+
+      clickEvent();
+
+    }
+
+    function clickEvent() {
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        console.log("test");
         return function() {
           infowindow.setContent("<div class='infoWindowText'><h5>" + result[i].country + "</h5><br>" + result[i].address + "<br>Phone: " + result[i].phone + "<br>Email: <a href='mailto:" + result[i].email + "'>" + result[i].email + "</a></div>");
           infowindow.open(map, marker);
@@ -399,9 +659,23 @@ var portfolio = {
   page: 0,
   maxFilters: 4,
   grid: 3,
+  imgReady: function() {
+    $(this).parent().find(".portfolio-load").fadeOut(500);
+    $(this).parent().find(".portfolio-image-load").remove();
+    $(this)
+      .removeClass("portfolio-image-loading")
+      .attr("alt", $(this).attr("data-alt"))
+      .removeAttr("data-alt");
+  },
   load: function() {
+    if ($(this).attr("id") == "mixitup-loadmore") {
+      if ($(this).find(".bouncer").is(":visible")) return false;
+
+      $(this).find("span").hide();
+      $(this).find(".bouncer").show();
+    }
+
     portfolio.page++;
-    $("#mixitup-loadmore").remove();
 
     $.ajax({
       url: "https://www.behance.net/v2/users/" + portfolio.user + "/projects",
@@ -425,10 +699,39 @@ var portfolio = {
             .addClass("portfolio-item")
             .addClass("col-md-" + portfolio.grid)
             .data("projectData", data.projects[i])
+            .append("<div />")
+            .find("div:last")
+            .addClass("portfolio-load")
+            .append("<div />")
+            .find("div:last")
+            .addClass("bouncer")
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce1")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce2")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce3")
+            .parent()
+            .parent()
+            .parent()
             .append("<img />")
             .find("img:last")
             .addClass("portfolio-image")
+            .addClass("portfolio-image-loading")
             .attr("src", data.projects[i].covers[404])
+            .attr("data-alt", data.projects[i].name)
+            .on("load", portfolio.imgReady)
+            .parent()
+            .append("<img />")
+            .find("img:last")
+            .addClass("portfolio-image")
+            .addClass("portfolio-image-load")
+            .attr("src", "/img/aRation.png")
             .attr("alt", data.projects[i].name)
             .parent()
             .append("<div />")
@@ -439,6 +742,8 @@ var portfolio = {
             .click(showItem);
           $("#mixitup-container .row").append($el);
         }
+
+        $("#mixitup-container .portfolio-item:not(.faded-done)").hide().addClass("faded-done").fadeIn(500);
 
         var categoriesSorted = Object.keys(portfolio.categoriesCount).sort(function(a, b) {
           return portfolio.categoriesCount[a] - portfolio.categoriesCount[b];
@@ -459,19 +764,38 @@ var portfolio = {
 
           if (j == (categoriesSorted.length - 1) && categoriesSorted.length > portfolio.maxFilters) {
             $("#mixitup-container .filters .btn.showmore, #mixitup-container .filters #mixitup-showless").remove();
-            $("#mixitup-container .filters").append("<button class='btn showmore' type='button'>Show more...</button>");
-            $("#mixitup-container .filters").append("<a id='mixitup-showless'>Show less</a>");
+            $("#mixitup-container .filters").append("<button class='btn showmore btn-invert' type='button'>Show more...</button>");
+            $("#mixitup-container .filters").append("<a id='mixitup-showless' class='btn btn-invert'>Show less</a>");
           }
         }
+
+        $("#mixitup-loadmore").remove();
 
         if (data.projects.length == 12) {
           $el = $("<button />");
           $el
             .addClass("btn")
-            .attr("type", "button")
             .attr("id", "mixitup-loadmore")
+            .click(portfolio.load)
+            .append("<span />")
+            .find("span:last")
             .text("Load more...")
-            .click(portfolio.load);
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bouncer")
+            .hide()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce1")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce2")
+            .parent()
+            .append("<div />")
+            .find("div:last")
+            .addClass("bounce3");
           $("#mixitup-container").append($el);
         }
 
@@ -486,7 +810,7 @@ var portfolio = {
         });
 
         if (portfolio.mixer) portfolio.mixer.destroy();
-        portfolio.mixer = mixitup($("#mixitup-container"), {
+        portfolio.mixer = mixitup("#mixitup-container", {
           selectors: {
             target: ".portfolio-item"
           },
@@ -527,6 +851,8 @@ if ($("body").attr("id") == "profile") {
       var html = compiledTemplate(data.user);
       $("#profile-sidebar").html(html);
 
+      $("#profile-sidebar > *").hide().fadeIn(500);
+
       portfolio.load();
     },
     error: apiError
@@ -537,19 +863,12 @@ if ($("body").attr("id") == "profile") {
 var teamReady = false;
 
 if ($("body").attr("id") == "about") {
-  $.getJSON("/js/team.json", function(team) {
+  $.getJSON("/js/team.json", function(data) {
     var template = $("#teamRows").html();
     var compiledTemplate = Template7.compile(template);
 
-    var teamItems = [];
-    for (var i = 0; i < team.length; i++) {
-      var teamItem = team[i];
-      teamItem.lineBr = ((i + 1) % 4) == 0;
-      teamItems.push(teamItem);
-    }
-
     var context = {
-      team: teamItems
+      team: data
     };
     var html = compiledTemplate(context);
     $("#teamRows").after(html);

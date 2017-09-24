@@ -1,10 +1,17 @@
 .btn {
-	background-color: $primaryButton;
+	background: $primaryButton;
 	border-radius: 20px;
 	color: white;
 	cursor: pointer;
-	margin: 5px 5px;
+	margin: 5px;
 	padding: 8px 16px;
+
+	&.btn-invert {
+		background: transparent;
+		border: 3px solid currentColor;
+		color: $primaryButton !important;
+		padding: 6px 16px;
+	}
 }
 
 .btn-active,

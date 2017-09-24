@@ -1,4 +1,5 @@
 $popup-padding: 80px;
+$popup-padding-sm: 30px;
 
 .popup {
   color: #000;
@@ -31,6 +32,10 @@ $popup-padding: 80px;
         margin: 0 auto 15px;
         max-width: 100%;
 
+        &.has-caption {
+          margin-bottom: 15px !important;
+        }
+
         &:first-child {
           &.popup-text {
             margin-top: 15px;
@@ -55,6 +60,7 @@ $popup-padding: 80px;
         position: relative;
 
         iframe {
+          border: none;
           position: absolute;
           width: 100%!important;
           height: 100%!important;
@@ -171,7 +177,7 @@ $popup-padding: 80px;
             color: #454545;
             display: block;
             margin-left: 60px;
-            word-break: break-all;
+            word-break: break-word;
           }
         }
       }
@@ -188,5 +194,43 @@ $popup-padding: 80px;
     top: 0;
     width: 100%;
     z-index: 1000;
+  }
+
+  &.popup-sm {
+    > .popup-container {
+      max-height: 500px;
+    }
+  }
+
+  &.popup-xs {
+    > .popup-container {
+      max-height: 450px;
+      max-width: 800px;
+    }
+  }
+
+  &.popup-auto {
+    > .popup-container {
+      height: auto;
+      width: auto;
+    }
+  }
+  @media(max-width: 767px) {
+    > .popup-container {
+      height: calc(100% - #{$popup-padding-sm} - #{$popup-padding-sm});
+      overflow: auto;
+      top: 50%;
+      width: calc(100% - #{$popup-padding-sm} - #{$popup-padding-sm});
+
+      > .popup-sidebar {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+       > .popup-sidebar,
+      > .popup-content {
+        height: auto;
+        overflow: unset;
+      }
+    }
   }
 }

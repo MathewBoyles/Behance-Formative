@@ -20,6 +20,8 @@ if ($("body").attr("id") == "profile") {
       var html = compiledTemplate(data.user);
       $("#profile-sidebar").html(html);
 
+      $("#profile-sidebar > *").hide().fadeIn(500);
+
       portfolio.load();
     },
     error: apiError

@@ -14,58 +14,99 @@ footer {
 		background-color: #666;
 	}
 
-	.col-4 {
-		padding: 0;
-		text-align: center;
+	.container {
+		.row {
+			> div {
+				padding: 0;
+				text-align: center;
 
-		ul {
-			list-style-type: none;
-			margin: 7px 0 0;
+				ul {
+					list-style-type: none;
+					margin: 7px 0 0;
 
-			li {
-				display: inline;
-				vertical-align: middle;
+					li {
+						display: inline;
+						vertical-align: middle;
 
-				a {
-					color: $primaryColor;
-					transition: color 0.3s;
-				}
+						a {
+							color: $primaryColor;
+							transition: color 0.3s;
+						}
 
-				a:hover {
-					color: darken($primaryColor, 20%);
-					text-decoration: none;
-				}
-			}
+						a:hover {
+							color: darken($primaryColor, 20%);
+							text-decoration: none;
+						}
+					}
 
-			&.social-links {
-				li:not(:last-child) {
-					a {
-						padding-right: 4px;
+					&.social-links {
+						li:not(:last-child) {
+							a {
+								padding-right: 4px;
+							}
+						}
+					}
+
+					&.footer-nav {
+						margin-top: 11px;
+
+						li {
+							a {
+								padding: 5px 10px;
+
+								&.nav-active {
+									font-weight: bold;
+									text-decoration: underline;
+								}
+							}
+						}
 					}
 				}
-			}
 
-			&.footer-nav {
-				margin-top: 11px;
+				&.footer-logo {
+					text-align: left;
 
-				li {
-					a {
-						padding: 5px 10px;
+					img {
+						margin-top: -2px;
+					}
+				}
 
-						&.nav-active {
-							font-weight: bold;
-							text-decoration: underline;
+				&.footer-links {
+					text-align: right;
+				}
+				@media (max-width: 768px) {
+					text-align: center !important;
+
+					&.footer-logo {
+						display: none;
+					}
+
+					&.footer-social {
+						margin: -20px 0 3px;
+
+						li:not(:last-child) {
+							a {
+								padding-right: 7px;
+							}
 						}
+
+						.fa {
+							font-size: 1.5em;
+						}
+					}
+
+					&.footer-links {
+						margin-bottom: -20px;
 					}
 				}
 			}
 		}
 	}
 
-	.footer-logo {
-		img {
-	    margin-top: -2px;
-		}
+	.pby-behance {
+		float: left;
+		margin-top: 10px;
+		width: 150px;
 	}
 
 	.copyright {

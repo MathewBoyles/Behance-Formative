@@ -174,7 +174,6 @@ function initMap() {
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     var infowindow = new google.maps.InfoWindow();
-
     for (var i = 0; i < result.length; i++) {
       var marker = new google.maps.Marker({
         position: {

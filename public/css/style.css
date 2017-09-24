@@ -298,8 +298,11 @@ body {
             #profile-wrapper > .row #profile-sidebar > .profile-stats > div > span > strong {
               color: #000; }
       #profile-wrapper > .row #profile-sidebar > .btn {
-        margin: 0 34px 10px;
+        margin: 0 34px 20px;
         width: calc(100% - 34px - 34px); }
+      @media (max-width: 767px) {
+        #profile-wrapper > .row #profile-sidebar {
+          border-bottom: 1px solid #cfcfcf; } }
     #profile-wrapper > .row hr {
       border: none;
       border-bottom: 1px solid #cfcfcf;

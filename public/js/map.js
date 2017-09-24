@@ -1,5 +1,7 @@
+var mapReady = false;
+
 function initMap() {
-  $.getJSON("js/markers.json", function(result) {
+  $.getJSON("/js/markers.json", function(result) {
     var mapOptions = {
       center: new google.maps.LatLng(35, 10),
       zoom: 2,
@@ -170,7 +172,7 @@ function initMap() {
       }]
     };
 
-    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     var infowindow = new google.maps.InfoWindow();
     for (var i = 0; i < result.length; i++) {
       var marker = new google.maps.Marker({
@@ -178,21 +180,29 @@ function initMap() {
           lat: result[i].coords.lat,
           lng: result[i].coords.lng
         },
-        map: map
+        map: map,
+        icon: {
+          url: "img/marker.png"
+        }
       });
 
-      clickEvent();
-
+      clickEvents();
     }
 
-    function clickEvent() {
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        console.log("test");
+    mapReady = true;
+    if (teamReady) $("#loading").fadeOut();
+
+    function clickEvents() {
+      google.maps.event.addListener(marker, "click", (function(marker, i) {
         return function() {
-          infowindow.setContent("<div class='infoWindowText'><h5>" + result[i].country + "</h5><br>" + result[i].address + "<br>Phone: " + result[i].phone + "<br>Email: <a href='mailto:" + result[i].email + "'>" + result[i].email + "</a></div>");
+          infowindow.setContent("<div class='info-window-text'><h5><img class='inline-logo' src='img/marker.png' alt='Small logo' width='20'>" + result[i].country + "</h5><br>" + result[i].address + "<br>Phone: " + result[i].phone + "<br>Email: <a href='mailto:" + result[i].email + "'>" + result[i].email + "</a></div>");
           infowindow.open(map, marker);
         };
       })(marker, i));
+
+      google.maps.event.addListener(map, 'click', function() {
+        infowindow.close();
+      });
     }
   });
 }

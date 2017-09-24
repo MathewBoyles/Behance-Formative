@@ -7,13 +7,17 @@ $primaryFont: 'Bitter', serif;
 $secondaryFont: 'Arial', sans-serif;
 
 @import "defaults";
+@import "loading";
+@import "error";
 @import "buttons";
 @import "navbar";
 @import "hero";
 @import "map";
 @import "quote";
 @import "content";
+@import "profile";
 @import "team";
 @import "popup";
 @import "video";
+@import "map";
 @import "footer";

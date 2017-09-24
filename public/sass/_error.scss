@@ -1,0 +1,15 @@
+#apiError,
+#matureFilter {
+  .popup-content {
+    overflow: auto;
+
+    > div {
+      max-width: 500px;
+      padding: 50px 40px;
+
+      > p {
+        margin: 0;
+      }
+    }
+  }
+}

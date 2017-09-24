@@ -1,52 +1,51 @@
-[
-  {
-    "country":"San Francisco",
-    "address":"Level 11, 600 California Street CA 94108",
-    "phone":"+1 415 449 8633",
-    "email":"hello@lightfarm.com",
-    "coords":{
-      "lat":37.7929588,
-      "lng":-122.4069826
+[{
+    "country": "San Francisco",
+    "address": "Level 11, 600 California Street CA 94108",
+    "phone": "+1 415 449 8633",
+    "email": "hello@lightfarm.com",
+    "coords": {
+      "lat": 37.7929588,
+      "lng": -122.4069826
     }
   },
   {
-    "country":"Rio de Janeiro",
-    "address":"305, Bloc 2, 500 Av. das Américas, Barra da Tijuca, RJ 22640-100",
-    "phone":"+55 21 3129 4161",
-    "email":"ola@lightfarm.com",
-    "coords":{
-      "lat":-23.0035658,
-      "lng":-43.3194956
+    "country": "Rio de Janeiro",
+    "address": "305, Bloc 2, 500 Av. das Américas, Barra da Tijuca, RJ 22640-100",
+    "phone": "+55 21 3129 4161",
+    "email": "ola@lightfarm.com",
+    "coords": {
+      "lat": -23.0035658,
+      "lng": -43.3194956
     }
   },
   {
-    "country":"Melbourne",
-    "address":"89 Wellington Street, St Kilda, VIC 3182",
-    "phone":"+61 3 8820 5950",
-    "email":"hello@lightfarm.com",
-    "coords":{
-      "lat":-37.8569117,
-      "lng":144.9861613
+    "country": "Melbourne",
+    "address": "89 Wellington Street, St Kilda, VIC 3182",
+    "phone": "+61 3 8820 5950",
+    "email": "hello@lightfarm.com",
+    "coords": {
+      "lat": -37.8569117,
+      "lng": 144.9861613
     }
   },
   {
-    "country":"Singapore – Corporate Head Office",
-    "address":"16 Raffles Quay, #33-02 Hong Leong Building, Singapore 048581",
-    "phone":"+65 3158 1592",
-    "email":"hello@lightfarm.com",
-    "coords":{
-      "lat":1.2813619,
-      "lng":103.8486628
+    "country": "Singapore – Corporate Head Office",
+    "address": "16 Raffles Quay, #33-02 Hong Leong Building, Singapore 048581",
+    "phone": "+65 3158 1592",
+    "email": "hello@lightfarm.com",
+    "coords": {
+      "lat": 1.2813619,
+      "lng": 103.8486628
     }
   },
   {
-    "country":"China",
-    "address":"Yvonne Hu Business Development - China",
-    "phone":"+86 139 1770 1920",
-    "email":"yvonne@lightfarm.com",
-    "coords":{
-      "lat":31.2243085,
-      "lng":120.9162924
+    "country": "China",
+    "address": "Yvonne Hu Business Development - China",
+    "phone": "+86 139 1770 1920",
+    "email": "yvonne@lightfarm.com",
+    "coords": {
+      "lat": 31.2243085,
+      "lng": 120.9162924
     }
   }
 ]

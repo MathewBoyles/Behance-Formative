@@ -1,0 +1,29 @@
+if ($("body").attr("id") == "profile") {
+  var profileID = window.location.pathname.split("/")[2];
+
+  portfolio.maxFilters = 2;
+  portfolio.grid = 4;
+  portfolio.user = profileID;
+
+  $.ajax({
+    url: "https://www.behance.net/v2/users/" + profileID,
+    data: {
+      client_id: config.client_id
+    },
+    dataType: "jsonp",
+    success: function(data) {
+      document.title = data.user.display_name + " | " + document.title;
+
+      var template = $("#profileData").html();
+      var compiledTemplate = Template7.compile(template);
+
+      var html = compiledTemplate(data.user);
+      $("#profile-sidebar").html(html);
+
+      $("#profile-sidebar > *").hide().fadeIn(500);
+
+      portfolio.load();
+    },
+    error: apiError
+  });
+}

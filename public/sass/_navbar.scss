@@ -1,7 +1,7 @@
 .navbar {
 	position: absolute;
 	width: 100%;
-	z-index: 2;
+	z-index: 100;
 
 	.container {
 		width: 80%;
@@ -21,6 +21,39 @@
 		&.nav-active {
 			font-weight: bold;
 			text-decoration: underline;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.navbar-toggler {
+		border-color: white;
+
+		> .navbar-toggler-icon {
+			background-image: url("../img/nav-light.svg");
+		}
+	}
+	@media (max-width: 991px) {
+		.navbar-collapse {
+			.navbar-nav {
+				margin-top: 5px;
+
+				> li {
+					margin-top: 5px;
+
+					> a {
+						background: rgba(0, 0, 0, 0.4);
+						color: #FFF !important;
+						padding: 10px 15px;
+
+						&.nav-active {
+							background: rgba(0, 0, 0, 0.8);
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -31,6 +64,14 @@
 	&.navbar-dark {
 		.nav-link {
 			color: #000 !important;
+		}
+
+		.navbar-toggler {
+			border-color: black;
+
+			> .navbar-toggler-icon {
+				background-image: url("../img/nav-dark.svg");
+			}
 		}
 	}
 }

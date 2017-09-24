@@ -196,7 +196,7 @@ function initMap() {
     function clickEvents() {
       google.maps.event.addListener(marker, "click", (function(marker, i) {
         return function() {
-          infowindow.setContent("<div class='infoWindowText'><h5>" + result[i].country + "</h5><br>" + result[i].address + "<br>Phone: " + result[i].phone + "<br>Email: <a href='mailto:" + result[i].email + "'>" + result[i].email + "</a></div>");
+          infowindow.setContent("<div class='info-window-text'><h5><img class='inline-logo' src='img/marker.png' alt='Small logo' width='20'>" + result[i].country + "</h5><br>" + result[i].address + "<br>Phone: " + result[i].phone + "<br>Email: <a href='mailto:" + result[i].email + "'>" + result[i].email + "</a></div>");
           infowindow.open(map, marker);
         };
       })(marker, i));

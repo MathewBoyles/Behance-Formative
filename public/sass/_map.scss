@@ -8,11 +8,36 @@
   }
 }
 
-.infoWindowText {
+.info-window-text {
   color: black;
+
+  .inline-logo {
+    margin: 0 12px 4px 0;
+  }
 
   h5 {
     text-align: center;
     margin-bottom: 0;
   }
+}
+
+/*style the box*/
+.gm-style .gm-style-iw {
+  border-radius: 0px !important;
+
+}
+
+/*style the p tag*/
+.gm-style .gm-style-iw #google-popup p{
+}
+
+
+/*style the arrow*/
+.gm-style div div div div div div div div {
+
+}
+
+/*style the link*/
+.gm-style div div div div div div div div a {
+
 }

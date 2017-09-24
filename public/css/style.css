@@ -79,7 +79,14 @@ body {
     background: transparent;
     border: 3px solid currentColor;
     color: #618F62 !important;
-    padding: 6px 16px; }
+    padding: 6px 16px;
+    transition: all 0.5s; }
+    .btn.btn-invert.btn-hover:hover {
+      background: #618F62;
+      border: 3px solid #618F62;
+      color: white !important; }
+  .btn.btn-square {
+    border-radius: 0; }
   .btn.btn-active, .btn.active {
     background-color: #8F481A; }
 
@@ -290,6 +297,9 @@ body {
             position: relative; }
             #profile-wrapper > .row #profile-sidebar > .profile-stats > div > span > strong {
               color: #000; }
+      #profile-wrapper > .row #profile-sidebar > .btn {
+        margin: 0 34px 10px;
+        width: calc(100% - 34px - 34px); }
     #profile-wrapper > .row hr {
       border: none;
       border-bottom: 1px solid #cfcfcf;

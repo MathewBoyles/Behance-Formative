@@ -12,9 +12,10 @@
 		color: $primaryButton !important;
 		padding: 6px 16px;
 	}
-}
 
-.btn-active,
-.mixitup-control-active {
-	background-color: $activeButton;
+
+	&.btn-active,
+	&.active {
+		background-color: $activeButton;
+	}
 }

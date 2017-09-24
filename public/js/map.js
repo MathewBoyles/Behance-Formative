@@ -182,7 +182,7 @@ function initMap() {
         },
         map: map,
         icon: {
-          url: "img/marker.png"
+          url: "/img/marker.png"
         }
       });
 

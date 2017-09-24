@@ -351,7 +351,7 @@ function initMap() {
         },
         map: map,
         icon: {
-          url: "img/marker.png"
+          url: "/img/marker.png"
         }
       });
 
@@ -631,6 +631,7 @@ if ($("body").attr("id") == "homepage") portfolio.load();
 // Source: profile.js
 if ($("body").attr("id") == "profile") {
   var profileID = window.location.pathname.split("/")[2];
+  var profilePage = window.location.pathname.split("/")[3];
 
   portfolio.maxFilters = 2;
   portfolio.grid = 4;
@@ -653,7 +654,11 @@ if ($("body").attr("id") == "profile") {
 
       $("#profile-sidebar > *").hide().fadeIn(500);
 
-      portfolio.load();
+      if(profilePage == "stats") {
+        $("#profile-stats").show();
+        $("#mixitup-container").remove();
+        $("#loading").fadeOut();
+      } else portfolio.load();
     },
     error: apiError
   });

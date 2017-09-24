@@ -152,13 +152,9 @@ body {
     text-align: center;
     margin-bottom: 0; }
 
-/*style the box*/
 .gm-style .gm-style-iw {
-  border-radius: 0px !important; }
+  border-radius: 0 !important; }
 
-/*style the p tag*/
-/*style the arrow*/
-/*style the link*/
 .quote-block {
   background-color: #02A798;
   padding: 50px 50px 55px;
@@ -300,6 +296,8 @@ body {
       margin: 0; }
     #profile-wrapper > .row #mixitup-container {
       width: 100% !important; }
+    #profile-wrapper > .row #profile-stats {
+      display: none; }
 
 .team-row > .team-memeber {
   margin-bottom: 20px;
@@ -512,13 +510,9 @@ body {
     text-align: center;
     margin-bottom: 0; }
 
-/*style the box*/
 .gm-style .gm-style-iw {
-  border-radius: 0px !important; }
+  border-radius: 0 !important; }
 
-/*style the p tag*/
-/*style the arrow*/
-/*style the link*/
 footer {
   background-color: #4a4a4a;
   color: #FFFFFF;

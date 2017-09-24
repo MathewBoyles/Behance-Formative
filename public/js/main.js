@@ -100,6 +100,59 @@ function matureFilter(link) {
 
 loadTmpl("popup");
 
+// Source: chart.js
+if ($("body").attr("id") == "profile") {
+  google.charts.load("current", {
+    packages: ["corechart"]
+  });
+  google.charts.setOnLoadCallback(drawChart);
+}
+
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Dinosaur', 'Length'],
+    ['Acrocanthosaurus (top-spined lizard)', 12.2],
+    ['Albertosaurus (Alberta lizard)', 9.1],
+    ['Allosaurus (other lizard)', 12.2],
+    ['Apatosaurus (deceptive lizard)', 22.9],
+    ['Archaeopteryx (ancient wing)', 0.9],
+    ['Argentinosaurus (Argentina lizard)', 36.6],
+    ['Baryonyx (heavy claws)', 9.1],
+    ['Brachiosaurus (arm lizard)', 30.5],
+    ['Ceratosaurus (horned lizard)', 6.1],
+    ['Coelophysis (hollow form)', 2.7],
+    ['Compsognathus (elegant jaw)', 0.9],
+    ['Deinonychus (terrible claw)', 2.7],
+    ['Diplodocus (double beam)', 27.1],
+    ['Dromicelomimus (emu mimic)', 3.4],
+    ['Gallimimus (fowl mimic)', 5.5],
+    ['Mamenchisaurus (Mamenchi lizard)', 21.0],
+    ['Megalosaurus (big lizard)', 7.9],
+    ['Microvenator (small hunter)', 1.2],
+    ['Ornithomimus (bird mimic)', 4.6],
+    ['Oviraptor (egg robber)', 1.5],
+    ['Plateosaurus (flat lizard)', 7.9],
+    ['Sauronithoides (narrow-clawed lizard)', 2.0],
+    ['Seismosaurus (tremor lizard)', 45.7],
+    ['Spinosaurus (spiny lizard)', 12.2],
+    ['Supersaurus (super lizard)', 30.5],
+    ['Tyrannosaurus (tyrant lizard)', 15.2],
+    ['Ultrasaurus (ultra lizard)', 30.5],
+    ['Velociraptor (swift robber)', 1.8]
+  ]);
+
+  var options = {
+    title: 'Lengths of dinosaurs, in meters',
+    legend: {
+      position: 'none'
+    },
+    orientation: 'vertical'
+  };
+
+  var chart = new google.visualization.Histogram(document.getElementById('chart'));
+  chart.draw(data, options);
+}
+
 // Source: items.js
 var pauseHash = false;
 
@@ -343,7 +396,6 @@ function initMap() {
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     var infowindow = new google.maps.InfoWindow();
-
     for (var i = 0; i < result.length; i++) {
       var marker = new google.maps.Marker({
         position: {
@@ -373,206 +425,6 @@ function initMap() {
       google.maps.event.addListener(map, 'click', function() {
         infowindow.close();
       });
-    }
-  });
-}
-
-// Source: map.js
-function initMap() {
-  $.getJSON("js/markers.json", function(result) {
-    var mapOptions = {
-      center: new google.maps.LatLng(35, 10),
-      zoom: 2,
-      zoomControl: false,
-      mapTypeControl: false,
-      scaleControl: false,
-      streetViewControl: false,
-      rotateControl: false,
-      fullscreenControl: false,
-      draggable: false,
-      styles: [{
-        "featureType": "all",
-        "elementType": "labels",
-        "stylers": [{
-            "color": "#ff0000"
-          },
-          {
-            "visibility": "off"
-          }
-        ]
-      }, {
-        "featureType": "all",
-        "elementType": "labels.text",
-        "stylers": [{
-            "color": "#c4c4c4"
-          },
-          {
-            "visibility": "off"
-          }
-        ]
-      }, {
-        "featureType": "all",
-        "elementType": "labels.text.fill",
-        "stylers": [{
-            "color": "#c4c4c4"
-          },
-          {
-            "visibility": "off"
-          }
-        ]
-      }, {
-        "featureType": "all",
-        "elementType": "labels.icon",
-        "stylers": [{
-          "visibility": "off"
-        }]
-      }, {
-        "featureType": "administrative",
-        "elementType": "geometry.fill",
-        "stylers": [{
-          "visibility": "off"
-        }]
-      }, {
-        "featureType": "administrative",
-        "elementType": "labels",
-        "stylers": [{
-          "visibility": "off"
-        }]
-      }, {
-        "featureType": "administrative",
-        "elementType": "labels.text.fill",
-        "stylers": [{
-          "color": "#c4c4c4"
-        }]
-      }, {
-        "featureType": "administrative.country",
-        "elementType": "labels",
-        "stylers": [{
-          "visibility": "off"
-        }]
-      }, {
-        "featureType": "administrative.province",
-        "elementType": "labels",
-        "stylers": [{
-          "visibility": "off"
-        }]
-      }, {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [{
-          "color": "#c4c4c4"
-        }]
-      }, {
-        "featureType": "landscape.man_made",
-        "elementType": "all",
-        "stylers": [{
-          "color": "#ff0000"
-        }]
-      }, {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [{
-            "visibility": "off"
-          },
-          {
-            "color": "#c4c4c4"
-          }
-        ]
-      }, {
-        "featureType": "poi",
-        "elementType": "geometry.fill",
-        "stylers": [{
-          "color": "#c4c4c4"
-        }]
-      }, {
-        "featureType": "road",
-        "elementType": "all",
-        "stylers": [{
-            "saturation": -100
-          },
-          {
-            "lightness": 45
-          },
-          {
-            "color": "#c4c4c4"
-          }
-        ]
-      }, {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [{
-          "visibility": "simplified"
-        }]
-      }, {
-        "featureType": "road.arterial",
-        "elementType": "labels.icon",
-        "stylers": [{
-          "visibility": "off"
-        }]
-      }, {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [{
-            "visibility": "off"
-          },
-          {
-            "color": "#c4c4c4"
-          }
-        ]
-      }, {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [{
-            "color": "#ffffff"
-          },
-          {
-            "visibility": "on"
-          }
-        ]
-      }, {
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [{
-          "color": "#ffffff"
-        }]
-      }, {
-        "featureType": "water",
-        "elementType": "labels",
-        "stylers": [{
-          "visibility": "off"
-        }]
-      }, {
-        "featureType": "water",
-        "elementType": "labels.text",
-        "stylers": [{
-          "color": "#c4c4c4"
-        }]
-      }]
-    };
-
-    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    var infowindow = new google.maps.InfoWindow();
-    for (var i = 0; i < result.length; i++) {
-      var marker = new google.maps.Marker({
-        position: {
-          lat: result[i].coords.lat,
-          lng: result[i].coords.lng
-        },
-        map: map
-      });
-
-      clickEvent();
-
-    }
-
-    function clickEvent() {
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        console.log("test");
-        return function() {
-          infowindow.setContent("<div class='infoWindowText'><h5>" + result[i].country + "</h5><br>" + result[i].address + "<br>Phone: " + result[i].phone + "<br>Email: <a href='mailto:" + result[i].email + "'>" + result[i].email + "</a></div>");
-          infowindow.open(map, marker);
-        };
-      })(marker, i));
     }
   });
 }

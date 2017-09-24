@@ -1,7 +1,6 @@
 var portfolio = {
   categories: [],
   categoriesCount: {},
-  mixer: null,
   user: config.user_id,
   page: 0,
   maxFilters: 4,
@@ -156,9 +155,11 @@ var portfolio = {
           return false;
         });
 
-        if (portfolio.mixer) portfolio.mixer.destroy();
-        portfolio.mixer = mixitup("#mixitup-container", {
+        if ($("#mixitup-container").data("mixInit")) $("#mixitup-container").mixItUp("destroy");
+
+        $("#mixitup-container").data("mixInit", true).mixItUp({
           selectors: {
+            filter: "#mixitup-container .filters [data-filter]",
             target: ".portfolio-item"
           },
           animation: {

@@ -9,7 +9,7 @@
 
 		&:not(.show) {
 			.btn {
-				&.hide:not(.mixitup-control-active) {
+				&.hide:not(.active) {
 					display: none !important;
 				}
 			}
@@ -31,6 +31,7 @@
 
 		.portfolio-item {
 			cursor: pointer;
+			display: none;
 			float: left;
 			padding: 15px;
 			position: relative;

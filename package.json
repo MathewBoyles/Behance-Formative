@@ -19,7 +19,6 @@
     "express": "^4.15.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
-    "mixitup": "^3.2.1",
     "moment": "^2.18.1",
     "popper.js": "^1.11.0",
     "template7": "^1.3.0"

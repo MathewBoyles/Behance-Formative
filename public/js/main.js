@@ -404,7 +404,7 @@ function initMap() {
         },
         map: map,
         icon: {
-          url: "img/marker.png"
+          url: "/img/marker.png"
         }
       });
 
@@ -506,7 +506,6 @@ $(document).keyup(function(e) {
 var portfolio = {
   categories: [],
   categoriesCount: {},
-  mixer: null,
   user: config.user_id,
   page: 0,
   maxFilters: 4,
@@ -661,9 +660,11 @@ var portfolio = {
           return false;
         });
 
-        if (portfolio.mixer) portfolio.mixer.destroy();
-        portfolio.mixer = mixitup("#mixitup-container", {
+        if ($("#mixitup-container").data("mixInit")) $("#mixitup-container").mixItUp("destroy");
+
+        $("#mixitup-container").data("mixInit", true).mixItUp({
           selectors: {
+            filter: "#mixitup-container .filters [data-filter]",
             target: ".portfolio-item"
           },
           animation: {
@@ -683,6 +684,7 @@ if ($("body").attr("id") == "homepage") portfolio.load();
 // Source: profile.js
 if ($("body").attr("id") == "profile") {
   var profileID = window.location.pathname.split("/")[2];
+  var profilePage = window.location.pathname.split("/")[3];
 
   portfolio.maxFilters = 2;
   portfolio.grid = 4;
@@ -705,7 +707,11 @@ if ($("body").attr("id") == "profile") {
 
       $("#profile-sidebar > *").hide().fadeIn(500);
 
-      portfolio.load();
+      if(profilePage == "stats") {
+        $("#profile-stats").show();
+        $("#mixitup-container").remove();
+        $("#loading").fadeOut();
+      } else portfolio.load();
     },
     error: apiError
   });

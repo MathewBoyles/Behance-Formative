@@ -686,6 +686,8 @@ if ($("body").attr("id") == "profile") {
   var profileID = window.location.pathname.split("/")[2];
   var profilePage = window.location.pathname.split("/")[3];
 
+  if(profilePage !== "stats") profilePage = "profile";
+
   portfolio.maxFilters = 2;
   portfolio.grid = 4;
   portfolio.user = profileID;
@@ -701,8 +703,10 @@ if ($("body").attr("id") == "profile") {
 
       var template = $("#profileData").html();
       var compiledTemplate = Template7.compile(template);
+      var context = data.user;
+      context.current_page = profilePage;
 
-      var html = compiledTemplate(data.user);
+      var html = compiledTemplate(context);
       $("#profile-sidebar").html(html);
 
       $("#profile-sidebar > *").hide().fadeIn(500);
@@ -735,3 +739,25 @@ if ($("body").attr("id") == "about") {
     if (mapReady) $("#loading").fadeOut();
   });
 }
+
+// Source: top.js
+$(window).scroll(function() {
+  if ($(window).scrollTop() >= 150) $("#toTop:hidden").fadeIn(500);
+  else $("#toTop:not(.fading)").addClass("fading").fadeOut(500, function() {
+    $(this).removeClass("fading");
+  });
+});
+
+$el = $("<div />");
+$el
+  .attr("id", "toTop")
+  .click(function() {
+    $("body").animate({
+      scrollTop: 0
+    }, 500);
+  })
+  .append("<i />")
+  .find("i:last")
+  .addClass("fa")
+  .addClass("fa-chevron-up");
+$("body").append($el);

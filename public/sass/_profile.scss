@@ -64,6 +64,14 @@
           }
         }
       }
+
+      > .btn {
+        margin: 0 34px 20px;
+        width: calc(100% - 34px - 34px);
+      }
+      @media (max-width: 767px) {
+        border-bottom: 1px solid #cfcfcf;
+      }
     }
 
     hr {

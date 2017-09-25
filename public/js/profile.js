@@ -48,7 +48,7 @@ function drawChart() {
       var projectDatesArray = [];
       var projectDates = {
         "January": 0,
-        "Febuary": 0,
+        "February": 0,
         "March": 0,
         "April": 0,
         "May": 0,
@@ -74,7 +74,7 @@ function drawChart() {
         });
       }
 
-      console.log(projectDates);
+      console.log(projectDatesArray);
 
 
       var dataTable = new google.visualization.DataTable();

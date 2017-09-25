@@ -287,43 +287,47 @@ body {
       background: #ebebeb;
       color: #000;
       padding: 0; }
-      #profile-wrapper > .row #profile-sidebar > .profile-header {
+      #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-header {
         padding: 35px; }
-        #profile-wrapper > .row #profile-sidebar > .profile-header .profile-image {
+        #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-header .profile-image {
           border-radius: 50%;
           box-shadow: 0 0 10px #a7a7a7;
           float: left; }
-        #profile-wrapper > .row #profile-sidebar > .profile-header .profile-top {
+        #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-header .profile-top {
           display: flex;
           flex-direction: column;
           justify-content: center;
           margin: 0 0 0 115px;
           min-height: 100px;
           padding: 0; }
-          #profile-wrapper > .row #profile-sidebar > .profile-header .profile-top > p {
+          #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-header .profile-top > p {
             margin: 0; }
-          #profile-wrapper > .row #profile-sidebar > .profile-header .profile-top > .profile-location {
+          #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-header .profile-top > .profile-location {
             color: #828282;
             font-size: 0.8em; }
-      #profile-wrapper > .row #profile-sidebar > .profile-stats {
+      #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-stats {
         color: #5e5e5e;
         padding: 10px 35px 30px; }
-        #profile-wrapper > .row #profile-sidebar > .profile-stats > div {
+        #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-stats > div {
           height: 30px;
           margin-top: 20px; }
-          #profile-wrapper > .row #profile-sidebar > .profile-stats > div > .fa {
+          #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-stats > div > .fa {
             float: left;
             font-size: 2em;
             margin: -6px 0 0; }
-          #profile-wrapper > .row #profile-sidebar > .profile-stats > div > span {
+          #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-stats > div > span {
             color: #9a9a9a;
             left: 10px;
             position: relative; }
-            #profile-wrapper > .row #profile-sidebar > .profile-stats > div > span > strong {
+            #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > .profile-stats > div > span > strong {
               color: #000; }
-      #profile-wrapper > .row #profile-sidebar > .btn {
-        margin: 0 34px 20px;
-        width: calc(100% - 34px - 34px); }
+      #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap > #profile-stats {
+        padding-bottom: 20px; }
+      @media (min-width: 768px) {
+        #profile-wrapper > .row #profile-sidebar #profile-sidebar-wrap {
+          position: -webkit-sticky;
+          position: sticky;
+          top: 0; } }
       @media (max-width: 767px) {
         #profile-wrapper > .row #profile-sidebar {
           border-bottom: 1px solid #cfcfcf; } }

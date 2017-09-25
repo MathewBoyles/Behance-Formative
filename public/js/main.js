@@ -451,6 +451,7 @@ $(document).keyup(function(e) {
 
 // Source: portfolio.js
 var portfolio = {
+  chart: false,
   categories: [],
   categoriesCount: {},
   user: config.user_id,
@@ -490,6 +491,9 @@ var portfolio = {
             if (portfolio.categories.indexOf(c_name) == -1) portfolio.categories.push(c_name);
             portfolio.categoriesCount[c_name] = portfolio.categoriesCount[c_name] ? (Number(portfolio.categoriesCount[c_name]) + 1) : 1;
           }
+
+          projectDates = projectDatesOR;
+          if (portfolio.chart) projectDates[moment(data.projects[i].published_on * 1000).format("MMMM")]++;
 
           $el = $("<div />");
           for (var i_tag = 0; i_tag < data.projects[i].fields.length; i_tag++) $el.addClass("tag-" + (data.projects[i].fields[i_tag].replace(/ /g, "").replace(/[^\w\s]/gi, "").toLowerCase()));
@@ -619,6 +623,8 @@ var portfolio = {
           }
         });
 
+        if (portfolio.chart) drawChart();
+
         $("#loading").fadeOut();
       },
       error: apiError
@@ -629,15 +635,31 @@ var portfolio = {
 if ($("body").attr("id") == "homepage") portfolio.load();
 
 // Source: profile.js
+var projectDatesArray = [];
+var projectDates = {
+  "January": 0,
+  "February": 0,
+  "March": 0,
+  "April": 0,
+  "May": 0,
+  "June": 0,
+  "July": 0,
+  "August": 0,
+  "September": 0,
+  "October": 0,
+  "November": 0,
+  "December": 0
+};
+var projectDatesOR = projectDates;
+
 if ($("body").attr("id") == "profile") {
   var profileID = window.location.pathname.split("/")[2];
   var profilePage = window.location.pathname.split("/")[3];
 
-  if (profilePage !== "stats") profilePage = "profile";
-
   portfolio.maxFilters = 2;
   portfolio.grid = 4;
   portfolio.user = profileID;
+  portfolio.chart = true;
 
   $.ajax({
     url: "https://www.behance.net/v2/users/" + profileID,
@@ -658,89 +680,61 @@ if ($("body").attr("id") == "profile") {
 
       $("#profile-sidebar > *").hide().fadeIn(500);
 
-      if (profilePage == "stats") {
-        google.charts.load("current", {
-          "packages": ["corechart"]
-        });
-        google.charts.setOnLoadCallback(drawChart);
-      } else portfolio.load();
+      google.charts.load("current", {
+        "packages": ["corechart"]
+      });
+      google.charts.setOnLoadCallback(function() {
+        portfolio.load();
+      });
     },
     error: apiError
   });
 }
 
-var projectDates;
-
 function drawChart() {
-  $.ajax({
-    url: "https://www.behance.net/v2/users/" + profileID + "/projects",
-    data: {
-      client_id: config.client_id,
-      per_page: 100,
-      page: 1
-    },
-    dataType: "jsonp",
-    success: function(data) {
-      var projectDatesArray = [];
-      projectDates = {
-        "January": 0,
-        "February": 0,
-        "March": 0,
-        "April": 0,
-        "May": 0,
-        "June": 0,
-        "July": 0,
-        "August": 0,
-        "September": 0,
-        "October": 0,
-        "November": 0,
-        "December": 0
-      };
+  projectDatesArray = [];
+  for (var key in projectDates) {
+    projectDatesArray.push({
+      Month: key,
+      Count: projectDates[key]
+    });
+  }
 
-      for (var i = 0; i < data.projects.length; i++) projectDates[moment(data.projects[i].published_on * 1000).format("MMMM")]++;
+  var dataTable = new google.visualization.DataTable();
+  dataTable.addColumn("string", "Month");
+  dataTable.addColumn("number", "Project Count");
 
-      for (var key in projectDates) {
-        projectDatesArray.push({
-          Month: key,
-          Count: projectDates[key]
-        });
-      }
+  for (var l = 0; l < projectDatesArray.length; l++) dataTable.addRow([projectDatesArray[l].month, projectDatesArray[l].Count]);
 
-      var dataTable = new google.visualization.DataTable();
-      dataTable.addColumn("string", "Month");
-      dataTable.addColumn("number", "Project Count");
-
-      for (var l = 0; l < projectDatesArray.length; l++) dataTable.addRow([projectDatesArray[l].month, projectDatesArray[l].Count]);
-
-      var maxValue = Object.keys(projectDates).map(function(key) {
-        return projectDates[key];
-      });
-      maxValue = Math.max.apply(null, maxValue);
-
-      var options = {
-        title: "Posts per Month",
-        width: "100%",
-        height: "100%",
-        legend: "none",
-        vAxis: {
-          title: "Project Count",
-          minValue: maxValue,
-          gridlines: {
-            count: (maxValue + 1)
-          }
-        },
-        hAxis: {
-          title: "Month",
-          showTextEvery: 1
-        }
-      };
-
-      var chart = new google.visualization.LineChart(document.getElementById("history-chart"));
-      chart.draw(dataTable, options);
-
-      $("#loading").fadeOut();
-    }
+  var maxValue = Object.keys(projectDates).map(function(key) {
+    return projectDates[key];
   });
+  maxValue = Math.max.apply(null, maxValue);
+
+  var options = {
+    title: "Posts per Month",
+    width: "100%",
+    height: "100%",
+    legend: "none",
+    vAxis: {
+      title: "Project Count",
+      minValue: maxValue,
+      gridlines: {
+        count: (maxValue + 1)
+      }
+    },
+    hAxis: {
+      title: "Month",
+      showTextEvery: 1
+    },
+    backgroundColor: {
+      fill: "transparent"
+    },
+    colors: ["#618f62"]
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById("history-chart"));
+  chart.draw(dataTable, options);
 }
 
 // Source: team.js

@@ -1,4 +1,5 @@
 var portfolio = {
+  chart: false,
   categories: [],
   categoriesCount: {},
   user: config.user_id,
@@ -38,6 +39,9 @@ var portfolio = {
             if (portfolio.categories.indexOf(c_name) == -1) portfolio.categories.push(c_name);
             portfolio.categoriesCount[c_name] = portfolio.categoriesCount[c_name] ? (Number(portfolio.categoriesCount[c_name]) + 1) : 1;
           }
+
+          projectDates = projectDatesOR;
+          if (portfolio.chart) projectDates[moment(data.projects[i].published_on * 1000).format("MMMM")]++;
 
           $el = $("<div />");
           for (var i_tag = 0; i_tag < data.projects[i].fields.length; i_tag++) $el.addClass("tag-" + (data.projects[i].fields[i_tag].replace(/ /g, "").replace(/[^\w\s]/gi, "").toLowerCase()));
@@ -166,6 +170,8 @@ var portfolio = {
             duration: 300
           }
         });
+
+        if (portfolio.chart) drawChart();
 
         $("#loading").fadeOut();
       },

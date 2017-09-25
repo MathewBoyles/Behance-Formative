@@ -77,26 +77,17 @@
               <span><strong>{{js "numberFormat(this.stats.followers)"}}</strong> followers</span>
             </div>
           </div>
-          {{#js_if "this.current_page == 'profile'"}}
-          <a href="/profile/{{username}}/stats" class="btn btn-square btn-invert btn-hover">Views stats</a>
-          {{else}}
-          <a href="/profile/{{username}}" class="btn btn-square btn-invert btn-hover">Back to Profile</a>
-          {{/js_if}}
-        </div>
-        <div class="col-md-8">
-          {{#js_if "this.current_page == 'stats'"}}
           <div id="profile-stats">
-            <h2>Stats</h2>
             <div id="history-chart"></div>
           </div>
-          {{else}}
+        </div>
+        <div class="col-md-8">
           <div class="mixitup-container" id="mixitup-container">
             <div class="filters">
               <button class="btn" type="button" data-filter="all">All</button>
             </div>
             <div class="row"></div>
           </div>
-          {{/js_if}}
         </div>
       </div>
     </script>

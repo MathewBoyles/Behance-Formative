@@ -331,11 +331,6 @@ body {
       border: none;
       border-bottom: 1px solid #cfcfcf;
       margin: 0; }
-    #profile-wrapper > .row #profile-stats {
-      padding: 30px; }
-      #profile-wrapper > .row #profile-stats > h2 {
-        color: #000;
-        font-family: "Bitter", serif; }
     #profile-wrapper > .row #mixitup-container {
       width: 100% !important; }
 

@@ -12,7 +12,7 @@ function showItem(item) {
     },
     dataType: "jsonp",
     success: function(data) {
-      if(data.project.mature_content) {
+      if (data.project.mature_content) {
         matureFilter(data.project.url);
         return false;
       }

@@ -111,7 +111,7 @@ body {
       color: white !important; }
   .btn.btn-square {
     border-radius: 0; }
-  .btn.btn-active, .btn.active {
+  .btn.active, .btn.btn-active {
     background-color: #8F481A; }
 
 .navbar {
@@ -331,10 +331,13 @@ body {
       border: none;
       border-bottom: 1px solid #cfcfcf;
       margin: 0; }
+    #profile-wrapper > .row #profile-stats {
+      padding: 30px; }
+      #profile-wrapper > .row #profile-stats > h2 {
+        color: #000;
+        font-family: "Bitter", serif; }
     #profile-wrapper > .row #mixitup-container {
       width: 100% !important; }
-    #profile-wrapper > .row #profile-stats {
-      display: none; }
 
 .team-row > .team-memeber {
   margin-bottom: 20px;

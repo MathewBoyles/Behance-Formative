@@ -24,8 +24,8 @@
 		border-radius: 0;
 	}
 
-	&.btn-active,
-	&.active {
+	&.active,
+	&.btn-active {
 		background-color: $activeButton;
 	}
 }

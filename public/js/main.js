@@ -100,59 +100,6 @@ function matureFilter(link) {
 
 loadTmpl("popup");
 
-// Source: chart.js
-if ($("body").attr("id") == "profile") {
-  google.charts.load("current", {
-    packages: ["corechart"]
-  });
-  google.charts.setOnLoadCallback(drawChart);
-}
-
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-    ['Dinosaur', 'Length'],
-    ['Acrocanthosaurus (top-spined lizard)', 12.2],
-    ['Albertosaurus (Alberta lizard)', 9.1],
-    ['Allosaurus (other lizard)', 12.2],
-    ['Apatosaurus (deceptive lizard)', 22.9],
-    ['Archaeopteryx (ancient wing)', 0.9],
-    ['Argentinosaurus (Argentina lizard)', 36.6],
-    ['Baryonyx (heavy claws)', 9.1],
-    ['Brachiosaurus (arm lizard)', 30.5],
-    ['Ceratosaurus (horned lizard)', 6.1],
-    ['Coelophysis (hollow form)', 2.7],
-    ['Compsognathus (elegant jaw)', 0.9],
-    ['Deinonychus (terrible claw)', 2.7],
-    ['Diplodocus (double beam)', 27.1],
-    ['Dromicelomimus (emu mimic)', 3.4],
-    ['Gallimimus (fowl mimic)', 5.5],
-    ['Mamenchisaurus (Mamenchi lizard)', 21.0],
-    ['Megalosaurus (big lizard)', 7.9],
-    ['Microvenator (small hunter)', 1.2],
-    ['Ornithomimus (bird mimic)', 4.6],
-    ['Oviraptor (egg robber)', 1.5],
-    ['Plateosaurus (flat lizard)', 7.9],
-    ['Sauronithoides (narrow-clawed lizard)', 2.0],
-    ['Seismosaurus (tremor lizard)', 45.7],
-    ['Spinosaurus (spiny lizard)', 12.2],
-    ['Supersaurus (super lizard)', 30.5],
-    ['Tyrannosaurus (tyrant lizard)', 15.2],
-    ['Ultrasaurus (ultra lizard)', 30.5],
-    ['Velociraptor (swift robber)', 1.8]
-  ]);
-
-  var options = {
-    title: 'Lengths of dinosaurs, in meters',
-    legend: {
-      position: 'none'
-    },
-    orientation: 'vertical'
-  };
-
-  var chart = new google.visualization.Histogram(document.getElementById('chart'));
-  chart.draw(data, options);
-}
-
 // Source: items.js
 var pauseHash = false;
 
@@ -168,7 +115,7 @@ function showItem(item) {
     },
     dataType: "jsonp",
     success: function(data) {
-      if(data.project.mature_content) {
+      if (data.project.mature_content) {
         matureFilter(data.project.url);
         return false;
       }
@@ -686,7 +633,7 @@ if ($("body").attr("id") == "profile") {
   var profileID = window.location.pathname.split("/")[2];
   var profilePage = window.location.pathname.split("/")[3];
 
-  if(profilePage !== "stats") profilePage = "profile";
+  if (profilePage !== "stats") profilePage = "profile";
 
   portfolio.maxFilters = 2;
   portfolio.grid = 4;
@@ -707,17 +654,92 @@ if ($("body").attr("id") == "profile") {
       context.current_page = profilePage;
 
       var html = compiledTemplate(context);
-      $("#profile-sidebar").html(html);
+      $("#profile-wrapper").html(html);
 
       $("#profile-sidebar > *").hide().fadeIn(500);
 
-      if(profilePage == "stats") {
-        $("#profile-stats").show();
-        $("#mixitup-container").remove();
-        $("#loading").fadeOut();
+      if (profilePage == "stats") {
+        google.charts.load("current", {
+          "packages": ["corechart"]
+        });
+        google.charts.setOnLoadCallback(drawChart);
       } else portfolio.load();
     },
     error: apiError
+  });
+}
+
+var projectDates;
+
+function drawChart() {
+  $.ajax({
+    url: "https://www.behance.net/v2/users/" + profileID + "/projects",
+    data: {
+      client_id: config.client_id,
+      per_page: 100,
+      page: 1
+    },
+    dataType: "jsonp",
+    success: function(data) {
+      var projectDatesArray = [];
+      projectDates = {
+        "January": 0,
+        "February": 0,
+        "March": 0,
+        "April": 0,
+        "May": 0,
+        "June": 0,
+        "July": 0,
+        "August": 0,
+        "September": 0,
+        "October": 0,
+        "November": 0,
+        "December": 0
+      };
+
+      for (var i = 0; i < data.projects.length; i++) projectDates[moment(data.projects[i].published_on * 1000).format("MMMM")]++;
+
+      for (var key in projectDates) {
+        projectDatesArray.push({
+          Month: key,
+          Count: projectDates[key]
+        });
+      }
+
+      var dataTable = new google.visualization.DataTable();
+      dataTable.addColumn("string", "Month");
+      dataTable.addColumn("number", "Project Count");
+
+      for (var l = 0; l < projectDatesArray.length; l++) dataTable.addRow([projectDatesArray[l].month, projectDatesArray[l].Count]);
+
+      var maxValue = Object.keys(projectDates).map(function(key) {
+        return projectDates[key];
+      });
+      maxValue = Math.max.apply(null, maxValue);
+
+      var options = {
+        title: "Posts per Month",
+        width: "100%",
+        height: "100%",
+        legend: "none",
+        vAxis: {
+          title: "Project Count",
+          minValue: maxValue,
+          gridlines: {
+            count: (maxValue + 1)
+          }
+        },
+        hAxis: {
+          title: "Month",
+          showTextEvery: 1
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById("history-chart"));
+      chart.draw(dataTable, options);
+
+      $("#loading").fadeOut();
+    }
   });
 }
 

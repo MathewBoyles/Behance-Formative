@@ -80,6 +80,10 @@ body {
     border: 3px solid currentColor;
     color: #618F62 !important;
     padding: 6px 16px; }
+  .btn.btn-square {
+    border-radius: 0px;
+    margin: 0 34px;
+    width: calc(100% - 34px - 34px); }
   .btn.btn-active, .btn.active {
     background-color: #8F481A; }
 

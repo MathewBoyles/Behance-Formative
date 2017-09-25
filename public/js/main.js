@@ -100,59 +100,6 @@ function matureFilter(link) {
 
 loadTmpl("popup");
 
-// Source: chart.js
-if ($("body").attr("id") == "profile") {
-  google.charts.load("current", {
-    packages: ["corechart"]
-  });
-  google.charts.setOnLoadCallback(drawChart);
-}
-
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-    ['Dinosaur', 'Length'],
-    ['Acrocanthosaurus (top-spined lizard)', 12.2],
-    ['Albertosaurus (Alberta lizard)', 9.1],
-    ['Allosaurus (other lizard)', 12.2],
-    ['Apatosaurus (deceptive lizard)', 22.9],
-    ['Archaeopteryx (ancient wing)', 0.9],
-    ['Argentinosaurus (Argentina lizard)', 36.6],
-    ['Baryonyx (heavy claws)', 9.1],
-    ['Brachiosaurus (arm lizard)', 30.5],
-    ['Ceratosaurus (horned lizard)', 6.1],
-    ['Coelophysis (hollow form)', 2.7],
-    ['Compsognathus (elegant jaw)', 0.9],
-    ['Deinonychus (terrible claw)', 2.7],
-    ['Diplodocus (double beam)', 27.1],
-    ['Dromicelomimus (emu mimic)', 3.4],
-    ['Gallimimus (fowl mimic)', 5.5],
-    ['Mamenchisaurus (Mamenchi lizard)', 21.0],
-    ['Megalosaurus (big lizard)', 7.9],
-    ['Microvenator (small hunter)', 1.2],
-    ['Ornithomimus (bird mimic)', 4.6],
-    ['Oviraptor (egg robber)', 1.5],
-    ['Plateosaurus (flat lizard)', 7.9],
-    ['Sauronithoides (narrow-clawed lizard)', 2.0],
-    ['Seismosaurus (tremor lizard)', 45.7],
-    ['Spinosaurus (spiny lizard)', 12.2],
-    ['Supersaurus (super lizard)', 30.5],
-    ['Tyrannosaurus (tyrant lizard)', 15.2],
-    ['Ultrasaurus (ultra lizard)', 30.5],
-    ['Velociraptor (swift robber)', 1.8]
-  ]);
-
-  var options = {
-    title: 'Lengths of dinosaurs, in meters',
-    legend: {
-      position: 'none'
-    },
-    orientation: 'vertical'
-  };
-
-  var chart = new google.visualization.Histogram(document.getElementById('chart'));
-  chart.draw(data, options);
-}
-
 // Source: items.js
 var pauseHash = false;
 
@@ -709,11 +656,86 @@ if ($("body").attr("id") == "profile") {
 
       if(profilePage == "stats") {
         $("#profile-stats").show();
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
         $("#mixitup-container").remove();
         $("#loading").fadeOut();
       } else portfolio.load();
     },
     error: apiError
+  });
+}
+
+function drawChart() {
+  $.ajax({
+    url: "https://www.behance.net/v2/users/" + profileID + "/projects/",
+    data: {
+      client_id: config.client_id
+    },
+    dataType: "jsonp",
+    success: function(data) {
+      var projectDatesArray = [];
+      var projectDates = {
+        "January": 0,
+        "Febuary": 0,
+        "March": 0,
+        "April": 0,
+        "May": 0,
+        "June": 0,
+        "July": 0,
+        "August": 0,
+        "September": 0,
+        "October": 0,
+        "November": 0,
+        "December": 0
+      };
+
+      for (var i = 0; i < data.projects.length; i++) {
+        var c_date = moment(data.projects[i].published_on * 1000).format('MMMM');
+
+        projectDates[c_date]++;
+      }
+
+      for (var key in projectDates) {
+        projectDatesArray.push({
+          Month: key,
+          Count: projectDates[key]
+        });
+      }
+
+      console.log(projectDates);
+
+
+      var dataTable = new google.visualization.DataTable();
+
+      dataTable.addColumn('string', 'Month');
+      dataTable.addColumn('number', 'Project Count');
+
+      for (var l = 0; l < projectDatesArray.length; l++) {
+        dataTable.addRow([projectDatesArray[l].month, projectDatesArray[l].Count]);
+      }
+
+      var options = {
+        title: 'Number of Projects Posted by Month',
+        width: "100%",
+        height: "100%",
+        legend: "none",
+        vAxis: {
+          title: 'Project Count',
+          minValue : 10
+        },
+        hAxis: {
+          title: 'Month',
+          showTextEvery: 1,
+          ticks: [{f:'Jan'},{f:'Feb'},{f:'Mar'},{f:'Apr'}]
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('history-chart'));
+      chart.draw(dataTable, options);
+    }
   });
 }
 

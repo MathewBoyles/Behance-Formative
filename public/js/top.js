@@ -9,7 +9,7 @@ $el = $("<div />");
 $el
   .attr("id", "toTop")
   .click(function() {
-    $("body").animate({
+    $("html,body").animate({
       scrollTop: 0
     }, 500);
   })

@@ -56,7 +56,11 @@ footer {
 
 								&.nav-active {
 									font-weight: bold;
-									text-decoration: underline;
+
+									> span {
+										border-bottom: 2px solid white;
+										padding: 0 3px 8px;
+									}
 								}
 							}
 						}

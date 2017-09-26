@@ -17,13 +17,14 @@
 
 	.nav-link {
 		color: $primaryColor !important;
+		text-decoration: none;
 
 		&.nav-active {
 			font-weight: bold;
-			text-decoration: underline;
 
-			&:hover {
-				text-decoration: underline;
+			> span {
+				border-bottom: 2px solid currentColor;
+				padding: 0 3px 8px;
 			}
 		}
 	}

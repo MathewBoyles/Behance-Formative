@@ -125,12 +125,13 @@ body {
   .navbar .navbar-brand img {
     width: 150px; }
   .navbar .nav-link {
-    color: #FFFFFF !important; }
+    color: #FFFFFF !important;
+    text-decoration: none; }
     .navbar .nav-link.nav-active {
-      font-weight: bold;
-      text-decoration: underline; }
-      .navbar .nav-link.nav-active:hover {
-        text-decoration: underline; }
+      font-weight: bold; }
+      .navbar .nav-link.nav-active > span {
+        border-bottom: 2px solid currentColor;
+        padding: 0 3px 8px; }
   .navbar .navbar-toggler {
     border-color: white; }
     .navbar .navbar-toggler > .navbar-toggler-icon {
@@ -604,8 +605,10 @@ footer {
         footer .container .row > div ul.footer-nav li a {
           padding: 5px 10px; }
           footer .container .row > div ul.footer-nav li a.nav-active {
-            font-weight: bold;
-            text-decoration: underline; }
+            font-weight: bold; }
+            footer .container .row > div ul.footer-nav li a.nav-active > span {
+              border-bottom: 2px solid white;
+              padding: 0 3px 8px; }
     footer .container .row > div.footer-logo {
       text-align: left; }
       footer .container .row > div.footer-logo img {

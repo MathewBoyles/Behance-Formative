@@ -3,7 +3,7 @@ var mapReady = false;
 function initMap() {
   $.getJSON("/js/markers.json", function(result) {
     var mapOptions = {
-      center: new google.maps.LatLng(35, 10),
+      center: new google.maps.LatLng(43, 10),
       zoom: 2,
       zoomControl: false,
       mapTypeControl: false,
@@ -59,7 +59,7 @@ function initMap() {
           "featureType": "administrative.country",
           "elementType": "geometry.stroke",
           "stylers": [{
-            "color": "#c8c1c1"
+            "color": "#b8b0b0"
           }]
         }, {
           "featureType": "administrative",
@@ -89,7 +89,7 @@ function initMap() {
           "featureType": "landscape",
           "elementType": "all",
           "stylers": [{
-            "color": "#d4d4d4"
+            "color": "#c3c3c3"
           }]
         }, {
           "featureType": "landscape.man_made",
@@ -162,7 +162,7 @@ function initMap() {
           "featureType": "water",
           "elementType": "geometry.fill",
           "stylers": [{
-            "color": "#ffffff"
+            "color": "#eeeeee"
           }]
         }, {
           "featureType": "water",

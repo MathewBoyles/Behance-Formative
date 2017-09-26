@@ -162,9 +162,17 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; }
+  .hero.hero-sm {
+    height: 50vh; }
   @media (max-width: 780px) {
     .hero {
       height: 150px; } }
+
+#map-wrap {
+  background: #EEE;
+  border-top: 1px solid #d0d0d0;
+  height: 80vh;
+  padding: 0; }
 
 #map {
   height: 100%;
@@ -531,6 +539,12 @@ body {
     height: 100%;
     left: 0;
     top: 0; }
+
+#map-wrap {
+  background: #EEE;
+  border-top: 1px solid #d0d0d0;
+  height: 80vh;
+  padding: 0; }
 
 #map {
   height: 100%;

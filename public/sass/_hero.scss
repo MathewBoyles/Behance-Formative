@@ -5,6 +5,10 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+
+	&.hero-sm {
+		height: 50vh;
+	}
 	@media (max-width: 780px) {
 		height: 150px;
 	}
